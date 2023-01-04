@@ -1,7 +1,8 @@
 
 import {todoItem} from './todo.js'
 import './style.css'
-import {createHTMLInitial,addInputForm, addNewTodo} from './addHtml.js'
+import {getDueDate,setDueDate,
+    createHTMLInitial,addInputForm, addNewTodo,addInputCheckSpan} from './addHtml.js'
 
 
 const bodyDiv = document.querySelector('body');
@@ -18,17 +19,37 @@ const form = document.querySelector('form');
 
 
 //get form data
+
 form.addEventListener('submit', function(e) {
-const inputData = document.querySelector('input');
-const text = inputData.value;
+const inputTitleData = document.querySelector('.title');
+const inputDescriptionData = document.querySelector('.description');
+const dateInputData = document.querySelector('.date');
+
+
+const titleText = inputTitleData.value;
+const descriptionText = inputDescriptionData.value;
+const dateText = dateInputData.value;
+
+if(titleText.length!=0){
 const todoNewItem = todoItem();
-todoNewItem.setDescription(text);
+    todoNewItem.setTitle(titleText);
+    todoNewItem.setDescription(descriptionText);
+    todoNewItem.setDueDate(dateText);
 
-    todoDiv.appendChild(addNewTodo(text));
+    todoDiv.appendChild(addNewTodo(todoNewItem.getTitle(),
+    todoNewItem.getDescription(),todoNewItem.getDueDate()));
+  
+
     todoItems.push(todoNewItem);
+     inputTitleData.value = "";
+inputDescriptionData.value = "";
+dateInputData.value = "";
+}
+else{
+    addInputCheckSpan("Can't be empty");
+}
+
  e.preventDefault();
-
-
  
 });
 

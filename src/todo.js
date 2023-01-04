@@ -28,9 +28,16 @@ const todoItem = (title,description,priority,dueDate,completed) =>  {
       function getDescription(){
        return proto.description;
       }
+      function setDueDate(dueDate){
+        proto.dueDate = dueDate;
+        console.log(dueDate);
+      }
+      function getDueDate(){
+       return proto.dueDate;
+      }
 
     
-return {setTitle,getTitle,setDescription,getTitle};
+return {setTitle,getTitle,setDescription,getDueDate,setDueDate,getDescription,getTitle};
 };
 
 // const buyBooks = todoItem();

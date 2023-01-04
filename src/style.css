@@ -1,0 +1,89 @@
+:root{
+    --todoBorderstyle: 1px solid grey;
+}
+@font-face {
+    font-family: "Roboto";
+    src: url(./asset/Roboto-Regular.ttf);
+}
+@font-face {
+    font-family: "Roboto-Bold";
+    src: url(./asset/Roboto-Bold.ttf);
+}
+
+
+body{
+    font-size: 25px;
+    display: flex;
+    margin: 0px;
+    flex-direction: row;
+    justify-content: center;
+    text-decoration: none;
+    background-color: white;
+    font-family: 'Roboto-bold',Arial, Helvetica, sans-serif;
+}
+
+/* HEADER */
+.header >p{
+    text-align: center;
+    font-size: larger;
+    
+}
+
+/* INPUT FORM */
+.todo>form>fieldset,.todoedit,.todo>form>fieldset>input{
+    min-width: 250px; 
+}
+input:focus-visible{
+    border: none;
+    outline: none;
+    position: relative;
+}
+.todo>form>fieldset>input{
+   
+    margin: 10px;
+    border: 0px;
+}
+fieldset{
+  flex-direction: column;
+  display: flex;
+}
+.todo{
+    display: flex;
+    flex-direction: column;
+   
+}
+
+
+/* .spanerror{
+    
+    background-color: rgb(255, 165, 165);
+    position: relative;
+    bottom: 10px;
+    width:fit-content;
+    bottom: 25px;
+    left: 300px;
+}
+
+.spanerror::before{
+    content: "add Title!";
+    font-size: 15px;
+    
+} */
+/* TODO ITEMS BUTTONs */
+.todoedit{
+   margin: 0px;
+   border:none;
+   background-color: white;
+   text-align: left;
+   border-bottom: var(--todoBorderstyle);
+   padding: 10px;
+
+   margin-bottom: 5px;
+   font-size: 15px;
+}
+
+.todotitle{
+    padding-bottom: 3px;
+    font-size: 30px;
+}
+
