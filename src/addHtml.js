@@ -60,7 +60,7 @@ function addInputForm(){
   dateInput.classList.add('date');
 
   const submit = document.createElement('input');
-  submit.textContent = "submit";
+submit.value = "Set Todo";
   submit.type = "submit";
 
 
@@ -118,12 +118,6 @@ function updateTodo(){
 }
 
 
-function removeFromArrayNum(element){
-  const toRemoveDiv = element.parentElement;
- const removeNum = toRemoveDiv.id;
-   
-    return removeNum;
-}
 
 function removeFromHTML(query){
   const removeAllTodoDivs = document.querySelectorAll(query);
@@ -140,6 +134,7 @@ function repopulateHTMLFromArray(todoItems,counter){
   });
   return counter;
 }
+
 
 function getFormData(inputTitleData,inputDescriptionData,dateInputData){
   
@@ -173,6 +168,14 @@ function createNewTodoItem(titleText,descriptionText,dateText,counter){
 
    return holderTodo;
 
+}
+
+
+function removeFromArrayNum(element){
+  const toRemoveDiv = element.parentElement;
+ const removeNum = toRemoveDiv.id;
+   
+    return removeNum;
 }
 
 export {createHTMLInitial,addInputForm, addNewTodo,updateTodo,getCurrentDate,
