@@ -19,7 +19,7 @@ body{
     justify-content: center;
     text-decoration: none;
     background-color: white;
-    font-family: 'Roboto-bold',Arial, Helvetica, sans-serif;
+    font-family: 'Roboto-Bold',Arial, Helvetica, sans-serif;
 }
 
 /* HEADER */
@@ -38,7 +38,7 @@ input:focus-visible{
     outline: none;
     position: relative;
 }
-.todo>form>fieldset>input{
+.todo>form>fieldset>input,button{
    
     margin: 10px;
     border: 0px;
@@ -69,8 +69,18 @@ fieldset{
     font-size: 15px;
     
 } */
-/* TODO ITEMS BUTTONs */
+/* TODO ITEMS DIV n Buttons */
+.todotitle{
+    padding-bottom: 3px;
+    font-size: 30px;
+    font-family: 'Roboto-Bold',Arial, Helvetica, sans-serif;
+}
+
+.tododescription{
+    font-family: 'Roboto',Arial, Helvetica, sans-serif;
+}
 .todoedit{
+    position: relative;
    margin: 0px;
    border:none;
    background-color: white;
@@ -79,11 +89,28 @@ fieldset{
    padding: 10px;
 
    margin-bottom: 5px;
-   font-size: 15px;
+   font-size: 20px;
 }
 
-.todotitle{
-    padding-bottom: 3px;
-    font-size: 30px;
+
+
+input[type="date"]{
+    margin-top: 10px;
+    
 }
 
+.deletebutton{
+    color: green;
+    font-size: large;
+  
+    background-color: white;
+    border: 1px solid grey;
+    position: relative;
+   bottom: 40px;
+   left: 250px;
+}
+
+.deletebutton:active{
+    position: relative;
+    border: 2px solid grey;
+}

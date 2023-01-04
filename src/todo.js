@@ -30,7 +30,7 @@ const todoItem = (title,description,priority,dueDate,completed) =>  {
       }
       function setDueDate(dueDate){
         proto.dueDate = dueDate;
-        console.log(dueDate);
+      
       }
       function getDueDate(){
        return proto.dueDate;

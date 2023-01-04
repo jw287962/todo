@@ -75,11 +75,18 @@ function addInputForm(){
   return todoDiv;
 }
 
-function addNewTodo(titleText,descriptionText,dueDate){
+function addNewTodo(titleText,descriptionText,dueDate,counter){
   //create div with new todo text inside button.
-  const newTodoButton = document.createElement('button');
-  newTodoButton.classList.add('todoedit');
 
+ 
+
+  const newTodoDeleteButton = document.createElement('button');
+  newTodoDeleteButton.classList.add('deletebutton');
+  newTodoDeleteButton.textContent = "✔";
+
+  const newTodoDiv = document.createElement('div');
+  newTodoDiv.classList.add('todoedit');
+  newTodoDiv.setAttribute('id',`${counter}`);
 
   const newTodoTitleDiv = document.createElement('div');
   newTodoTitleDiv.classList.add('todotitle');
@@ -98,24 +105,28 @@ function addNewTodo(titleText,descriptionText,dueDate){
 
 
 
-  newTodoButton.appendChild(newTodoTitleDiv);
-  newTodoButton.appendChild(newTodoDescriptionDiv);
-  newTodoButton.appendChild(newTodoDueDateDiv);
+  newTodoDiv.appendChild(newTodoTitleDiv);
+  newTodoDiv.appendChild(newTodoDeleteButton);
+  newTodoDiv.appendChild(newTodoDescriptionDiv);
+  newTodoDiv.appendChild(newTodoDueDateDiv);
 
-  return newTodoButton;
+  return newTodoDiv;
 }
 
-function addInputCheckSpan(text){
+function updateTodo(){
  
-
-
-
 }
 
+function deleteTodo(removeThis){
+removeThis.remove();
+
+// console.log('remove');
+
+}
 
 // export
 
-export {createHTMLInitial,addInputForm, addNewTodo,addInputCheckSpan};
+export {createHTMLInitial,addInputForm, addNewTodo,updateTodo,deleteTodo,getCurrentDate};
 
 
 
