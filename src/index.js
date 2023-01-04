@@ -18,35 +18,40 @@ const todoItems = [];
 // const todoDiv = document.querySelector('.todo'); 
 const form = document.querySelector('form');
 
-var removeNum;
 getTodoItemsStorage()
 
 let counter = 0;
 //get form data and adds new todo element 
-form.addEventListener('submit', function(e) {
-    const inputTitleData = document.querySelector('.title');
-  const inputDescriptionData = document.querySelector('.description');
-  const dateInputData = document.querySelector('.date');
-
-   const todoData =  getFormData(inputTitleData,inputDescriptionData,dateInputData);
-
-updateArrayTodoList(todoData.titleText,todoData.descriptionText,todoData.dateText);
-if(todoData.titleText.length!=0){   
-const holderTodo = createNewTodoItem(todoData.titleText,todoData.descriptionText,
-            todoData.dateText,counter);
-    counter++;
-
-   addEventListenerCheckButton(holderTodo.newTodoDeleteButton);
-}
-
-populateStorage();
-resetFormData(inputTitleData,inputDescriptionData,dateInputData);
-
-
-
-e.preventDefault();
-});
+submitTodoQuery();
 // 
+
+
+
+function submitTodoQuery(){
+    form.addEventListener('submit', function(e) {
+        const inputTitleData = document.querySelector('.title');
+      const inputDescriptionData = document.querySelector('.description');
+      const dateInputData = document.querySelector('.date');
+    
+       const todoData =  getFormData(inputTitleData,inputDescriptionData,dateInputData);
+    
+    updateArrayTodoList(todoData.titleText,todoData.descriptionText,todoData.dateText);
+    if(todoData.titleText.length!=0){   
+    const holderTodo = createNewTodoItem(todoData.titleText,todoData.descriptionText,
+                todoData.dateText,counter);
+        counter++;
+    
+       addEventListenerCheckButton(holderTodo.newTodoDeleteButton);
+    }
+    
+    populateStorage();
+    resetFormData(inputTitleData,inputDescriptionData,dateInputData);
+    
+    
+    
+    e.preventDefault();
+    });
+}
 
  const removeTodoElements = (element) =>{
     return function(){
