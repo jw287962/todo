@@ -1,7 +1,8 @@
 
 import {todoItem} from './todo.js'
 import './style.css'
-import {getCurrentDate,
+import {getCurrentDate, removeFromArrayNum,removeFromHTML,repopulateHTMLFromArray,
+    getFormData,resetFormData,createNewTodoItem,
     createHTMLInitial,addInputForm, addNewTodo,updateTodo} from './addHtml.js'
 
  
@@ -14,7 +15,7 @@ contentDiv.appendChild(addInputForm());  //add input form under contentDiv
 
 // need to update after input text is entered and user clicks enter
 const todoItems = [];
-const todoDiv = document.querySelector('.todo'); 
+// const todoDiv = document.querySelector('.todo'); 
 const form = document.querySelector('form');
 
 var removeNum;
@@ -24,68 +25,54 @@ let counter = 0;
 //get form data and adds new todo element 
 form.addEventListener('submit', function(e) {
     const inputTitleData = document.querySelector('.title');
-const inputDescriptionData = document.querySelector('.description');
-const dateInputData = document.querySelector('.date');
-const titleText = inputTitleData.value;
-const descriptionText = inputDescriptionData.value;
-const dateText = dateInputData.value;
+  const inputDescriptionData = document.querySelector('.description');
+  const dateInputData = document.querySelector('.date');
 
-updateArrayTodoList(titleText,descriptionText,dateText);
-    createNewTodoItem(titleText,descriptionText,dateText);
+   const todoData =  getFormData(inputTitleData,inputDescriptionData,dateInputData);
+
+updateArrayTodoList(todoData.titleText,todoData.descriptionText,todoData.dateText);
+if(todoData.titleText.length!=0){   
+const holderTodo = createNewTodoItem(todoData.titleText,todoData.descriptionText,
+            todoData.dateText,counter);
+    counter++;
+
+   addEventListenerCheckButton(holderTodo.newTodoDeleteButton);
+}
 
 populateStorage();
-inputTitleData.value = "";
-inputDescriptionData.value = "";
-dateInputData.value = getCurrentDate();
+resetFormData(inputTitleData,inputDescriptionData,dateInputData);
+
 
 
 e.preventDefault();
 });
 // 
 
- const removeTodoElement = (element) =>{
+ const removeTodoElements = (element) =>{
     return function(){
-
+        counter = 0;
      // update ARRAY but also RE-ADD ALL ITEMS IN HTML
-    const toRemoveDiv = element.parentElement;
-removeNum = toRemoveDiv.id;
-    counter = 0;
-    todoItems.splice(removeNum,1);
     
-    const removeAllTodoDivs = document.querySelectorAll('.todoedit');
-    removeAllTodoDivs.forEach(element => {
-        element.remove();
-    });
+    todoItems.splice(removeFromArrayNum(element),1);
+    const query = '.todoedit';
+    removeFromHTML(query);
    
-    todoItems.forEach(element => {
-        createNewTodoItem(element.getTitle(),element.getDescription(),element.getDueDate(),counter);
+  counter =  repopulateHTMLFromArray(todoItems,counter);
+  
+    const deleteButtonDivs = document.querySelectorAll('.deletebutton');
+    deleteButtonDivs.forEach(element => {
+     
+        addEventListenerCheckButton(element);
     });
+  
 }
 }
-
 
 // create the new TODO from Form and update ARRAY
-function createNewTodoItem(titleText,descriptionText,dateText){
-if(titleText.length!=0){
-   var holderTodo = addNewTodo(titleText,descriptionText,dateText,counter);
-        todoDiv
-        .appendChild(holderTodo.newTodoDiv);
-     
-// const findDeleteButton = document.querySelectorAll('.deletebutton');
-// // removeeventlistener of the delete button to prevent extra removal
-// findDeleteButton.forEach(element => {
- 
-holderTodo.newTodoDeleteButton.addEventListener("click", removeTodoElement(holderTodo.newTodoDeleteButton));
-     
-       
- 
-    // });
- 
-    counter++;
-    }
 
-    console.info(printArray(todoItems));
 
+function addEventListenerCheckButton(holderTodo){
+    holderTodo.addEventListener("click", removeTodoElements(holderTodo)); 
 }
 
 function updateArrayTodoList(titleText,descriptionText,dateText){

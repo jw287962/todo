@@ -118,9 +118,67 @@ function updateTodo(){
 }
 
 
+function removeFromArrayNum(element){
+  const toRemoveDiv = element.parentElement;
+ const removeNum = toRemoveDiv.id;
+   
+    return removeNum;
+}
+
+function removeFromHTML(query){
+  const removeAllTodoDivs = document.querySelectorAll(query);
+  removeAllTodoDivs.forEach(element => {
+      element.remove();
+  });
+}
+
+function repopulateHTMLFromArray(todoItems,counter){
+  
+  todoItems.forEach(element => {
+      createNewTodoItem(element.getTitle(),element.getDescription(),element.getDueDate(),counter);
+      counter++;
+  });
+  return counter;
+}
+
+function getFormData(inputTitleData,inputDescriptionData,dateInputData){
+  
+  const titleText = inputTitleData.value;
+  const descriptionText = inputDescriptionData.value;
+  const dateText = dateInputData.value;
+
+  return {titleText,descriptionText,dateText}
+}
+
+function resetFormData(inputTitleData,inputDescriptionData,dateInputData){
+
+  inputTitleData.value = "";
+  inputDescriptionData.value = "";
+  dateInputData.value = getCurrentDate();
+}
+
 // export
 
-export {createHTMLInitial,addInputForm, addNewTodo,updateTodo,getCurrentDate};
+function createNewTodoItem(titleText,descriptionText,dateText,counter){
+  const todoDiv = document.querySelector('.todo'); 
+  var holderTodo = addNewTodo(titleText,descriptionText,dateText,counter);
+       todoDiv.appendChild(holderTodo.newTodoDiv);
+    
+// const findDeleteButton = document.querySelectorAll('.deletebutton');
+// // removeeventlistener of the delete button to prevent extra removal
+// findDeleteButton.forEach(element => {
+   
+   // });
+   
+
+   return holderTodo;
+
+}
+
+export {createHTMLInitial,addInputForm, addNewTodo,updateTodo,getCurrentDate,
+  createNewTodoItem,
+  removeFromArrayNum,removeFromHTML,repopulateHTMLFromArray,getFormData,resetFormData
+};
 
 
 

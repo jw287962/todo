@@ -33,6 +33,10 @@ body{
 .todo>form>fieldset,.todoedit,.todo>form>fieldset>input{
     min-width: 250px; 
 }
+
+input[type="submit"]{
+    padding: 5px 0px;
+}
 input:focus-visible{
     border: none;
     outline: none;
