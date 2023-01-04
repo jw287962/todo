@@ -1,7 +1,7 @@
 
 import {todoItem} from './todo.js'
 import './style.css'
-import {deleteTodo,getCurrentDate,
+import {getCurrentDate,
     createHTMLInitial,addInputForm, addNewTodo,updateTodo} from './addHtml.js'
 
  
@@ -16,78 +16,87 @@ contentDiv.appendChild(addInputForm());  //add input form under contentDiv
 const todoItems = [];
 const todoDiv = document.querySelector('.todo'); 
 const form = document.querySelector('form');
+
+var removeNum;
 getTodoItemsStorage()
 
 let counter = 0;
-//get form data
+//get form data and adds new todo element 
 form.addEventListener('submit', function(e) {
-
-const inputTitleData = document.querySelector('.title');
+    const inputTitleData = document.querySelector('.title');
 const inputDescriptionData = document.querySelector('.description');
 const dateInputData = document.querySelector('.date');
-
-
 const titleText = inputTitleData.value;
 const descriptionText = inputDescriptionData.value;
 const dateText = dateInputData.value;
 
-if(titleText.length!=0){
-const todoNewItem = todoItem();
-    todoNewItem.setTitle(titleText);
-    todoNewItem.setDescription(descriptionText);
-    todoNewItem.setDueDate(dateText);
+updateArrayTodoList(titleText,descriptionText,dateText);
+    createNewTodoItem(titleText,descriptionText,dateText);
 
-    todoDiv.appendChild(addNewTodo(todoNewItem.getTitle(),
-    todoNewItem.getDescription(),todoNewItem.getDueDate()
-    ));
-  
-
-    todoItems.push(todoNewItem);
-    populateStorage();
-     inputTitleData.value = "";
+populateStorage();
+inputTitleData.value = "";
 inputDescriptionData.value = "";
 dateInputData.value = getCurrentDate();
-
-counter++;
-}
-
-const findDeleteButton = document.querySelectorAll('.deletebutton');
-
-
-
-findDeleteButton.forEach(element => {
-   
-   
-    if(todoItems.length >= 2){
-        element.removeEventListener("click", removeTodoHTML(element));
-    }
-    if(todoItems.length != 0){
-       
-        element.addEventListener("click", removeTodoHTML(element));
-        // delete upon button click
-       
-    }
-});
-
 
 
 e.preventDefault();
 });
+// 
 
-function removeTodoHTML(element){
+ const removeTodoElement = (element) =>{
+    return function(){
+
+     // update ARRAY but also RE-ADD ALL ITEMS IN HTML
     const toRemoveDiv = element.parentElement;
- const removeNum = toRemoveDiv.id
- console.clear();
-  return function(){
-    deleteTodo(toRemoveDiv);
-  
-   todoItems.splice(removeNum,1);
-  
-   printArray(todoItems);
+removeNum = toRemoveDiv.id;
+    counter = 0;
+    todoItems.splice(removeNum,1);
+    
+    const removeAllTodoDivs = document.querySelectorAll('.todoedit');
+    removeAllTodoDivs.forEach(element => {
+        element.remove();
+    });
    
-  }
+    todoItems.forEach(element => {
+        createNewTodoItem(element.getTitle(),element.getDescription(),element.getDueDate(),counter);
+    });
+}
 }
 
+
+// create the new TODO from Form and update ARRAY
+function createNewTodoItem(titleText,descriptionText,dateText){
+if(titleText.length!=0){
+   var holderTodo = addNewTodo(titleText,descriptionText,dateText,counter);
+        todoDiv
+        .appendChild(holderTodo.newTodoDiv);
+     
+// const findDeleteButton = document.querySelectorAll('.deletebutton');
+// // removeeventlistener of the delete button to prevent extra removal
+// findDeleteButton.forEach(element => {
+ 
+holderTodo.newTodoDeleteButton.addEventListener("click", removeTodoElement(holderTodo.newTodoDeleteButton));
+     
+       
+ 
+    // });
+ 
+    counter++;
+    }
+
+    console.info(printArray(todoItems));
+
+}
+
+function updateArrayTodoList(titleText,descriptionText,dateText){
+    const todoNewItem = todoItem();
+    todoNewItem.setTitle(titleText);
+    todoNewItem.setDescription(descriptionText);
+    todoNewItem.setDueDate(dateText);
+    todoItems.push(todoNewItem);
+}
+
+// PRINTS TODO ARRAY titles
 function printArray(array){
     for(let i = 0; i<array.length;i++){
         console.log(array[i].getTitle());

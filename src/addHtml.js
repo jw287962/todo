@@ -78,7 +78,7 @@ function addInputForm(){
 function addNewTodo(titleText,descriptionText,dueDate,counter){
   //create div with new todo text inside button.
 
- 
+
 
   const newTodoDeleteButton = document.createElement('button');
   newTodoDeleteButton.classList.add('deletebutton');
@@ -110,23 +110,17 @@ function addNewTodo(titleText,descriptionText,dueDate,counter){
   newTodoDiv.appendChild(newTodoDescriptionDiv);
   newTodoDiv.appendChild(newTodoDueDateDiv);
 
-  return newTodoDiv;
+  return {newTodoDiv,newTodoDeleteButton};
 }
 
 function updateTodo(){
  
 }
 
-function deleteTodo(removeThis){
-removeThis.remove();
-
-// console.log('remove');
-
-}
 
 // export
 
-export {createHTMLInitial,addInputForm, addNewTodo,updateTodo,deleteTodo,getCurrentDate};
+export {createHTMLInitial,addInputForm, addNewTodo,updateTodo,getCurrentDate};
 
 
 
