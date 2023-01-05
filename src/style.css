@@ -1,5 +1,9 @@
 :root{
     --todoBorderstyle: 1px solid grey;
+    --width: 350px;
+    --grey:  rgb(240, 238, 241);
+    --toRight: 240px;
+   
 }
 @font-face {
     font-family: "Roboto";
@@ -10,42 +14,134 @@
     src: url(./asset/Roboto-Bold.ttf);
 }
 
-
+html{
+    position: relative;
+    z-index: 100;
+   
+    
+}
 body{
+    position: relative;
+    width: 100%;
     font-size: 25px;
-    display: flex;
     margin: 0px;
-    flex-direction: row;
-    justify-content: center;
     text-decoration: none;
-    background-color: white;
+    background-color: var(--grey);
     font-family: 'Roboto-Bold',Arial, Helvetica, sans-serif;
+    background-color: #f0eef1;
+    position: relative;
+   
 }
 
+#content{
+    background-color: var(--grey);
+  align-items: center;
+    display: flex;
+    min-height: 95vh;
+    flex-direction: column;
+}
+
+.todo{
+    padding: 10px;
+   border-radius: 10px;
+   
+   
+    align-items: center;
+    max-width: 450px;
+}
 /* HEADER */
+.header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    width: 100%;
+    margin-bottom: 15px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+}
+
+.helpbutton{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    padding: 5px 15px;
+    background-color: rgb(243, 243, 243);
+    border-radius: 10px;
+    width: 80px;
+    
+}
 .header >p{
     text-align: center;
     font-size: larger;
     
 }
 
+.helpdiv{
+   width: fit-content;
+    background-color: white;
+    border: 1px solid black;
+    font-size: small;
+    margin: 10px;
+    padding: 10px;
+    position: fixed;
+    z-index: 1;
+    top: 50%;
+    transform: translate(-50%,-50%);
+
+ 
+    left: 50%;
+}
+.helptext{
+    
+    white-space: pre-line;
+}
 /* INPUT FORM */
 .todo>form>fieldset,.todoedit,.todo>form>fieldset>input{
-    min-width: 250px; 
+    min-width: var(--width); 
+   
+}
+input{
+    font-size: 15px;
+    
 }
 
 input[type="submit"]{
     padding: 5px 0px;
+    font-weight: bolder;
+    color: red;
+}
+input.title{
+    box-sizing: border-box;
+    font-size: 20px;
+    padding: 5px;
+}
+textarea.description{
+    height: 120px;
+    box-sizing: border-box;
+    resize: none;
+
+}
+input[type="submit"]:active{
+    position: relative;
+    top: 2px;    
 }
 input:focus-visible{
-    border: none;
-    outline: none;
     position: relative;
 }
-.todo>form>fieldset>input,button{
-   
-    margin: 10px;
-    border: 0px;
+.todo>form>fieldset>input, .helpbutton,textarea.description{
+    padding: 3px;
+    margin: 5px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    background-color: #f8f8f8;
+}
+label{
+    margin: 8px;
+}
+
+label{
+    font-size: 15px;
 }
 fieldset{
   flex-direction: column;
@@ -56,37 +152,31 @@ fieldset{
     flex-direction: column;
    
 }
-
-
-/* .spanerror{
-    
-    background-color: rgb(255, 165, 165);
-    position: relative;
-    bottom: 10px;
-    width:fit-content;
-    bottom: 25px;
-    left: 300px;
+form{
+    background-color: white;
 }
 
-.spanerror::before{
-    content: "add Title!";
-    font-size: 15px;
-    
-} */
-/* TODO ITEMS DIV n Buttons */
+/* CARDS */
+
+
+
 .todotitle{
     padding-bottom: 3px;
     font-size: 30px;
     font-family: 'Roboto-Bold',Arial, Helvetica, sans-serif;
+    
 }
 
 .tododescription{
     font-family: 'Roboto',Arial, Helvetica, sans-serif;
+    min-height: 50px;
+    padding: 0px 10px;
 }
 .todoedit{
     position: relative;
-   margin: 0px;
+   margin: 10px;
    border:none;
+    width: calc(var(--width)*1.3);
    background-color: white;
    text-align: left;
    border-bottom: var(--todoBorderstyle);
@@ -94,8 +184,13 @@ fieldset{
 
    margin-bottom: 5px;
    font-size: 20px;
+   max-height: 150px;
+  
 }
 
+select{
+    margin-left: 10px;
+}
 
 
 input[type="date"]{
@@ -103,18 +198,69 @@ input[type="date"]{
     
 }
 
-.deletebutton{
-    color: green;
+button{
+    margin-right: 5px;
+    height: 25px;
+}
+.deletebutton, .editbutton{
+    
     font-size: large;
-  
+    position: relative;
     background-color: white;
     border: 1px solid grey;
-    position: relative;
-   bottom: 40px;
-   left: 250px;
+  
+}
+.deletebutton{
+    color: green;
+ 
+    /* bottom: var(--toTop); */
+    left: var(--toRight);
+}
+.editbutton{
+    font-size: small;
+    font-weight: bold;
+    /* bottom: var(--toTop); */
+    left: var(--toRight);
 }
 
-.deletebutton:active{
-    position: relative;
+.deletebutton:active, .editbutton:active, .helpbutton:active{
+    
     border: 2px solid grey;
+}
+
+.low{
+    /* background-color: rgb(235, 235, 235); */
+}
+
+.med{
+    /* background-color: rgb(255, 255, 130); */
+    color: rgb(0, 4, 212);
+}
+
+.high{
+    /* background-color: rgb(255, 114, 114); */
+    color: rgb(189, 35, 35);
+}
+.low::after,.med::after,.high::after{
+position: inherit;
+right: 70px;
+
+}
+.low::after{
+    content:"Priority: LOW";
+    font-size: xx-small;
+}
+
+.med::after{
+    content:"Priority: MED";
+    font-size: 13px;
+}
+.high::after{
+    content:"Priority: HIGH";
+    font-size: 15px;
+}
+
+.hidden{
+    visibility: hidden;
+  
 }

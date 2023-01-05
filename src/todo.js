@@ -36,8 +36,16 @@ const todoItem = (title,description,priority,dueDate,completed) =>  {
        return proto.dueDate;
       }
 
+      function setPriority(priority){
+        proto.priority = priority;
+      
+      }
+      function getPriority(){
+       return proto.priority;
+      }
     
-return {setTitle,getTitle,setDescription,getDueDate,setDueDate,getDescription,getTitle};
+return {setPriority,getPriority,
+    setTitle,getTitle,setDescription,getDueDate,setDueDate,getDescription,getTitle};
 };
 
 // const buyBooks = todoItem();
