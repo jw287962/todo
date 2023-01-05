@@ -1,7 +1,9 @@
+import { el } from 'date-fns/locale';
 import {format} from '../node_modules/date-fns' 
 
 import {makeDark} from './logic.js'
 function createHTMLInitial(){
+        // CREATES HEADER 
     //Create content Div
     const contentDiv = document.createElement('div');
     contentDiv.setAttribute('id','content');
@@ -16,11 +18,10 @@ function createHTMLInitial(){
 
 
     const helpButtonDiv = document.createElement('div');
-    const helpButton = document.createElement('button');
-    helpButton.textContent = "HELP"
-    helpButtonDiv.classList.add('help')
-    helpButton.classList.add('helpbutton');
-    headerDiv.classList.add('header');
+    helpButtonDiv.classList.add('headerbuttondiv');
+    
+    const helpButton = makeButton('help');
+    const projectsButton = makeButton('projects');
       // make TODO DIV BODY
     const todoDiv = document.createElement('div');
     todoDiv.classList.add('todo');
@@ -31,18 +32,22 @@ function createHTMLInitial(){
     headerDiv.appendChild(headerText);
     headerDiv.appendChild(helpButtonDiv);
     helpButtonDiv.appendChild(helpButton);
+    helpButtonDiv.appendChild(projectsButton);
     contentDiv.appendChild(headerDiv);
     contentDiv.appendChild(todoDiv);
 
 
   return contentDiv;
 }
+
+
 function getCurrentDate(){
   const today = new Date();
   const date = format((today),'yyyy-MM-dd');
   return date;
 }
 
+// CREATES FORM
 function addInputForm(){
 
   const todoDiv = document.querySelector('.todo');
@@ -121,13 +126,9 @@ submit.value = "SET TODO";
 function addNewTodo(titleText,descriptionText,dueDate,priorityText,counter){
   //create div with new todo text inside button.
 
-  const newTodoDeleteButton = document.createElement('button');
-  newTodoDeleteButton.classList.add('deletebutton');
-  newTodoDeleteButton.textContent = "✔"; //checkmark
+  const newTodoDeleteButton = makeButton('delete');
 
-  const newTodoEditButton = document.createElement('button');
-  newTodoEditButton.classList.add('editbutton');
-  newTodoEditButton.textContent = "EDIT";
+  const newTodoEditButton = makeButton('edit');
 
   const newTodoDiv = document.createElement('div');
   newTodoDiv.classList.add('todoedit');
@@ -160,7 +161,29 @@ function addNewTodo(titleText,descriptionText,dueDate,priorityText,counter){
 
   return {newTodoDiv,newTodoDeleteButton,newTodoEditButton};
 }
+function addNewProject(projectTitle){
+  const newTodoDeleteButton = makeButton('delete');
 
+  const newTodoEditButton = makeButton('editproject');
+
+  const newTodoDiv = document.createElement('div');
+  newTodoDiv.classList.add('todoedit');
+
+  const newTodoTitleDiv = document.createElement('div');
+  newTodoTitleDiv.classList.add('todoproject');
+
+  
+  newTodoTitleDiv.textContent = "PROJECT: " + projectTitle ;
+
+  // newTodoDueDateDiv.textContent = dueDate;
+
+  newTodoDiv.appendChild(newTodoTitleDiv);
+  newTodoDiv.appendChild(newTodoEditButton);
+  newTodoDiv.appendChild(newTodoDeleteButton);
+ 
+
+  return {newTodoDiv,newTodoDeleteButton,newTodoEditButton};
+}
 function updateTodo(){
  
 }
@@ -175,27 +198,56 @@ function removeFromHTML(query){
 }
 
 function repopulateHTMLFromArray(todoItems,counter){
- 
+
+ if(todoItems.constructor.name === 'Object'){
+  todoItems = todoItems.getProject();
   todoItems.forEach(element => {
     createNewTodoItemHTML(element.getTitle(),element.getDescription(),element.getDueDate(),element.getPriority(),counter);
       counter++;
   });
   return counter;
+ }
+ else if(todoItems.constructor.name === 'Array'){
+  todoItems.forEach(element => {
+   counter++
+    createNewProjectHTML(element.getProjectName());
+  });
+  return counter;
+ }
+  
 }
+function createNewProjectHTML(todoProject){
+  const projectDiv = document.querySelector('.todo'); 
+  
+  const holderProject = addNewProject(todoProject);
+  console.log(holderProject);
+  projectDiv.appendChild(holderProject.newTodoDiv);
+
+   return holderProject;
+
+}
+
 function createNewTodoItemHTML(titleText,descriptionText,dateText,priorityText,counter){
   const todoDiv = document.querySelector('.todo'); 
   var holderTodo = addNewTodo(titleText,descriptionText,dateText,priorityText,counter);
-       todoDiv.appendChild(holderTodo.newTodoDiv);
-    
-// const findDeleteButton = document.querySelectorAll('.deletebutton');
-// // removeeventlistener of the delete button to prevent extra removal
-// findDeleteButton.forEach(element => {
-   
-   // });
-   
 
+       todoDiv.appendChild(holderTodo.newTodoDiv);
    return holderTodo;
 
+}
+
+function makeButton(text){
+  const button = document.createElement('button');
+  
+  button.classList.add(`${text}` + `button`);
+  text = text.toUpperCase();
+  if(text == "DELETE") {
+    
+    text = '✔';
+  }
+  
+  button.textContent = text;
+return button;
 }
 
 function getFormData(inputTitleData,inputDescriptionData,dateInputData,priorityData){

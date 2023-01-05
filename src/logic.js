@@ -30,4 +30,8 @@ function updateArrayTodoList(titleText,descriptionText,dateText,priorityText){
     return todoNewItem;
 }
 
+function updateProjectArray(){
+    
+}
+
 export {makeDark,isConfirmed,updateArrayTodoList};
