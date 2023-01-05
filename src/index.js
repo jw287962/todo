@@ -3,7 +3,7 @@ import {todoItem,todoProject} from './todo.js'
 import './style.css'
 import {findArrayNum,removeFromHTML,repopulateHTMLFromArray,
     getFormData,resetFormData,createNewTodoItemHTML,makeHelpCard,
-    createHTMLInitial,addInputForm,toggleHelp} from './addHtml.js'
+    createHTMLInitial,addInputForm,toggleHelp,removeAllTodoHTML} from './addHtml.js'
 import {isConfirmed,updateArrayTodoList} from './logic.js'
  
 const bodyDiv = document.querySelector('body');
@@ -31,7 +31,11 @@ let counter = 0;
 form.addEventListener('submit', doTodoFormSubmission);
 
 
-
+const inputTitleData = document.querySelector('.title');
+const inputDescriptionData = document.querySelector('.description');
+const dateInputData = document.querySelector('.date');
+const priorityData = document.querySelector('#priority');
+const submitButton = document.querySelector('.submittodo');
 
 
 
@@ -42,29 +46,17 @@ form.addEventListener('submit', doTodoFormSubmission);
 
 function doTodoFormSubmission(event){
     event.preventDefault();
-    const inputTitleData = document.querySelector('.title');
-    const inputDescriptionData = document.querySelector('.description');
-    const dateInputData = document.querySelector('.date');
-    const priorityData = document.querySelector('#priority');
-    const submitButton = document.querySelector('.submittodo');
+   
   
      const todoData =  getFormData(inputTitleData,inputDescriptionData,dateInputData,priorityData);
   // Here
   if(todoData.titleText.length!=0){   
   todoItems.addProjectItem(updateArrayTodoList(todoData.titleText,todoData.descriptionText,todoData.dateText,todoData.priorityText));
-  
-
   const holderTodo = createNewTodoItemHTML(todoData.titleText,todoData.descriptionText,
               todoData.dateText,todoData.priorityText,counter);
       counter++;
-  
-
       todoCheckButtonListener(holderTodo.newTodoDeleteButton);
-    
       editButtonListener(holderTodo.newTodoEditButton);
-  
-   
-
   resetFormData(inputTitleData,inputDescriptionData,dateInputData,priorityData,submitButton);
   
 
@@ -77,11 +69,7 @@ toggleHelp();
 
 // FUNCTIONS BELOW
 
-const inputTitleData = document.querySelector('.title');
-const inputDescriptionData = document.querySelector('.description');
-const dateInputData = document.querySelector('.date');
-const priorityData = document.querySelector('#priority');
-const submitButton = document.querySelector('.submittodo');
+
 
 
     function editButtonListener(editButtonDiv){
@@ -90,7 +78,7 @@ const submitButton = document.querySelector('.submittodo');
     function clickedEditButton(element){
             return function(){
                 if(isConfirmed()){
-            
+                    window.scrollTo(0,0);
                 editNumber = findArrayNum(element);
                 const todoItemHolder = todoItems.getProjectItem(editNumber);
                     // update ARRAY but also RE-ADD ALL ITEMS IN HTML
@@ -109,14 +97,8 @@ const submitButton = document.querySelector('.submittodo');
         } }   }
 
      function updateTodoChanges(event){
-        
-        console.log("UPDATETODOCHANGE" +event);
-            
-           
-        
-   
-  
-     const todoData =  getFormData(inputTitleData,inputDescriptionData,dateInputData,priorityData);
+          console.log("UPDATETODOCHANGE" +event);
+            const todoData =  getFormData(inputTitleData,inputDescriptionData,dateInputData,priorityData);
   // Here
   
             const holderTodo = updateArrayTodoList(todoData.titleText,todoData.descriptionText,todoData.dateText,todoData.priorityText);
@@ -138,11 +120,7 @@ const submitButton = document.querySelector('.submittodo');
             form.addEventListener('submit', doTodoFormSubmission);
            
         }
-    function removeAllTodoHTML(){
-      
-        const query = '.todoedit';
-        removeFromHTML(query);
-    }
+   
        
    
     function todoCheckButtonListener(holderTodo){

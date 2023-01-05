@@ -270,8 +270,14 @@ const helpCard = document.querySelector('.helpdiv');
 });
 }
 
+function removeAllTodoHTML(){
+      
+  const query = '.todoedit';
+  removeFromHTML(query);
+}
+
 export {createHTMLInitial,addInputForm, addNewTodo,updateTodo,getCurrentDate,
-  createNewTodoItemHTML,makeHelpCard,toggleHelp,
+  createNewTodoItemHTML,makeHelpCard,toggleHelp,removeAllTodoHTML,
   findArrayNum,removeFromHTML,repopulateHTMLFromArray,getFormData,resetFormData
 };
 

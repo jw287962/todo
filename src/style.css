@@ -169,7 +169,6 @@ form{
 
 .tododescription{
     font-family: 'Roboto',Arial, Helvetica, sans-serif;
-    min-height: 50px;
     padding: 0px 10px;
 }
 .todoedit{
@@ -267,4 +266,9 @@ position: inherit;
 .hidden{
     visibility: hidden;
   
+}
+@media only screen and (max-width: 600px) {
+    .todoedit{
+        max-width: 590px;
+    }
 }
