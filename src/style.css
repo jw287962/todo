@@ -267,11 +267,11 @@ position: inherit;
     visibility: hidden;
   
 }
-@media only screen and (max-width: 414px) {
+@media only screen and (max-width: 600px) {
     body{
-        max-width: 414px;
+        max-width: 100vw;
     }
     .todoedit{
-        max-width: 400px;
+        max-width: 90vw;
     }
 }
