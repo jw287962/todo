@@ -154,8 +154,9 @@ function addNewTodo(titleText,descriptionText,dueDate,priorityText,counter){
   newTodoDiv.appendChild(newTodoTitleDiv);
   newTodoDiv.appendChild(newTodoDescriptionDiv);
   newTodoDiv.appendChild(newTodoDueDateDiv);
-  newTodoDiv.appendChild(newTodoDeleteButton);
   newTodoDiv.appendChild(newTodoEditButton);
+  newTodoDiv.appendChild(newTodoDeleteButton);
+ 
 
   return {newTodoDiv,newTodoDeleteButton,newTodoEditButton};
 }
@@ -176,7 +177,6 @@ function removeFromHTML(query){
 function repopulateHTMLFromArray(todoItems,counter){
  
   todoItems.forEach(element => {
-   
     createNewTodoItemHTML(element.getTitle(),element.getDescription(),element.getDueDate(),element.getPriority(),counter);
       counter++;
   });
@@ -236,7 +236,8 @@ function makeHelpCard(){
   helpText.classList.add('helptext');
 
 
-  helpText.textContent = "✔: requires a doubleclick! \n Title: is Required!  "
+  helpText.textContent = "✔: requires a doubleclick! \n Title: is Required! " + 
+  "\n Click Card to EDIT or VIEW  ";
   newDiv.appendChild(helpText)
 
 

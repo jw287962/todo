@@ -185,7 +185,6 @@ form{
    margin-bottom: 5px;
    font-size: 20px;
    max-height: 150px;
-  
 }
 
 select{
@@ -205,27 +204,32 @@ button{
 .deletebutton, .editbutton{
     
     font-size: large;
-    position: relative;
+    
     background-color: white;
     border: 1px solid grey;
   
 }
 .deletebutton{
     color: green;
- 
+    position: relative;
     /* bottom: var(--toTop); */
-    left: var(--toRight);
+    left: calc(var(--toRight)*1.23);
+   z-index: 2;
 }
 .editbutton{
+    z-index: 1;
+    position: absolute;
     font-size: small;
     font-weight: bold;
-    /* bottom: var(--toTop); */
-    left: var(--toRight);
+    top: 0px;
+    left: 0px;
+    padding: 70px 205px;
+    opacity: 0;
 }
 
-.deletebutton:active, .editbutton:active, .helpbutton:active{
+.deletebutton:active, .editbutton:active, .helpbutton:active,.todoedit:active{
     
-    border: 2px solid grey;
+    top: 2px;
 }
 
 .low{
@@ -243,7 +247,7 @@ button{
 }
 .low::after,.med::after,.high::after{
 position: inherit;
-right: 70px;
+
 
 }
 .low::after{

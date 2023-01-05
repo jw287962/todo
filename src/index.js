@@ -1,5 +1,5 @@
 
-import {todoItem} from './todo.js'
+import {todoItem,todoProject} from './todo.js'
 import './style.css'
 import {findArrayNum,removeFromHTML,repopulateHTMLFromArray,
     getFormData,resetFormData,createNewTodoItemHTML,makeHelpCard,
@@ -15,7 +15,14 @@ contentDiv.appendChild(addInputForm());     //add input form under contentDiv
 bodyDiv.appendChild(makeHelpCard());
 
 // need to update after input text is entered and user clicks enter
-const todoItems = [];
+const todoProjects = [];
+
+// this is a project
+const todoItems = todoProject("Default");
+
+var currentProjectName;
+
+
 var editNumber;
 const form = document.querySelector('form');
 
@@ -24,12 +31,17 @@ let counter = 0;
 form.addEventListener('submit', doTodoFormSubmission);
 
 
+
+
+
+
+
 // GET FORM DATA  + ADD NEW TODO ELEMENT IN HTML
 
 
 
 function doTodoFormSubmission(event){
- 
+    event.preventDefault();
     const inputTitleData = document.querySelector('.title');
     const inputDescriptionData = document.querySelector('.description');
     const dateInputData = document.querySelector('.date');
@@ -39,7 +51,7 @@ function doTodoFormSubmission(event){
      const todoData =  getFormData(inputTitleData,inputDescriptionData,dateInputData,priorityData);
   // Here
   if(todoData.titleText.length!=0){   
-  todoItems.push(updateArrayTodoList(todoData.titleText,todoData.descriptionText,todoData.dateText,todoData.priorityText));
+  todoItems.addProjectItem(updateArrayTodoList(todoData.titleText,todoData.descriptionText,todoData.dateText,todoData.priorityText));
   
 
   const holderTodo = createNewTodoItemHTML(todoData.titleText,todoData.descriptionText,
@@ -54,7 +66,8 @@ function doTodoFormSubmission(event){
    
 
   resetFormData(inputTitleData,inputDescriptionData,dateInputData,priorityData,submitButton);
-  event.preventDefault();
+  
+
 }
 }
 
@@ -64,7 +77,11 @@ toggleHelp();
 
 // FUNCTIONS BELOW
 
-
+const inputTitleData = document.querySelector('.title');
+const inputDescriptionData = document.querySelector('.description');
+const dateInputData = document.querySelector('.date');
+const priorityData = document.querySelector('#priority');
+const submitButton = document.querySelector('.submittodo');
 
 
     function editButtonListener(editButtonDiv){
@@ -75,14 +92,10 @@ toggleHelp();
                 if(isConfirmed()){
             
                 editNumber = findArrayNum(element);
-                const todoItemHolder = todoItems[editNumber];
+                const todoItemHolder = todoItems.getProjectItem(editNumber);
                     // update ARRAY but also RE-ADD ALL ITEMS IN HTML
                 
-                const inputTitleData = document.querySelector('.title');
-                const inputDescriptionData = document.querySelector('.description');
-                const dateInputData = document.querySelector('.date');
-                const priorityData = document.querySelector('#priority');
-                const submitButton = document.querySelector('.submittodo');
+                
                         
                 submitButton.value = "***UPDATE***";
             inputTitleData.value = todoItemHolder.getTitle();;
@@ -101,23 +114,19 @@ toggleHelp();
             
            
         
-     const inputTitleData = document.querySelector('.title');
-    const inputDescriptionData = document.querySelector('.description');
-    const dateInputData = document.querySelector('.date');
-    const priorityData = document.querySelector('#priority');
-    const submitButton = document.querySelector('.submittodo');
+   
   
      const todoData =  getFormData(inputTitleData,inputDescriptionData,dateInputData,priorityData);
   // Here
   
             const holderTodo = updateArrayTodoList(todoData.titleText,todoData.descriptionText,todoData.dateText,todoData.priorityText);
             // console.log("TEST Priority: " + holderTodo.getPriority())
-            todoItems.splice(editNumber,1,holderTodo);
+            todoItems.replaceProjectItem(editNumber,holderTodo);
             removeAllTodoHTML();
             counter = 0;
-       
-            counter =  repopulateHTMLFromArray(todoItems,counter);
            
+            counter =  repopulateHTMLFromArray(todoItems.getProject(),counter);
+        
             readdListenerAfterRemoval();
 
             event.preventDefault();
@@ -146,10 +155,10 @@ const removeTodoElements = (element) =>{
         if(isConfirmed()){
             counter = 0;
             // update ARRAY but also RE-ADD ALL ITEMS IN HTML
-            todoItems.splice(findArrayNum(element),1);
+            todoItems.removeProjectItem(findArrayNum(element),1);
             removeAllTodoHTML();
-        
-        counter =  repopulateHTMLFromArray(todoItems,counter);
+     
+        counter =  repopulateHTMLFromArray(todoItems.getProject(),counter);
         
         readdListenerAfterRemoval();
         
@@ -178,7 +187,7 @@ function printArray(array){
 }
 
 function populateStorage(){
-    localStorage.setItem('todoItems', todoItems)
+    localStorage.setItem('todoItems', todoItems.getProject())
 
 }
 function getTodoItemsStorage(){

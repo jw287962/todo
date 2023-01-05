@@ -1,9 +1,34 @@
-export {todoItem};
-const todoProject = (todoItem) =>  {
-    const proto = { 
-        project,
-        //code 
+export {todoItem,todoProject};
+const todoProject = (name) =>  {
+    const todoProject = [];
+    const projectName = name;
+
+      function addProjectItem(todoItems){
+        todoProject.push(todoItems);
+       
       }
+      function getProject(){
+        return todoProject;
+      }
+      function removeProjectItem(number){
+        todoProject.splice(number,1);
+      }
+      function replaceProjectItem(number,todoItems){
+        todoProject.splice(number,1,todoItems);
+      }
+      
+      function getProjectItem(number){
+        return todoProject[number];
+      }
+
+      function setProjectName(name){
+        projectName = name;
+      }
+      function getProjectName(){
+      return projectName;
+      }
+return {addProjectItem,removeProjectItem,replaceProjectItem,
+    getProjectItem,getProject,setProjectName,getProjectName};
 };
 
 const todoItem = (title,description,priority,dueDate,completed) =>  {
