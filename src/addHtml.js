@@ -199,7 +199,7 @@ function removeFromHTML(query){
 }
 
 function repopulateHTMLFromArray(todoItems,counter){
-
+console.log("repopulate method" +counter);
  if(todoItems.constructor.name === 'Object'){
   todoItems = todoItems.getProject();
   todoItems.forEach(element => {
@@ -210,8 +210,9 @@ function repopulateHTMLFromArray(todoItems,counter){
  }
  else if(todoItems.constructor.name === 'Array'){
   todoItems.forEach(element => {
-   counter++
+
     createNewProjectHTML(element.getProjectName());
+    counter++
   });
   return counter;
  }

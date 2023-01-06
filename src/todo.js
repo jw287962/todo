@@ -5,7 +5,6 @@ const todoProject = (name) =>  {
 
       function addProjectItem(todoItems){
         todoProject.push(todoItems);
-       
       }
       function getProject(){
         return todoProject;

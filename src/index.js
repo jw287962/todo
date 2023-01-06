@@ -30,7 +30,7 @@ let priorityData = document.querySelector('#priority');
 let submitButton = document.querySelector('.submittodo');
 var editNumber;
 
-let counter = 0;
+var counter = 0;
 form.addEventListener('submit', doTodoFormSubmission);
 
 
@@ -64,39 +64,36 @@ function makeNewProject(){
               // submitButton.replaceWith(submitButton.cloneNode(true));
            
               form.addEventListener('submit', addNewProject)
-             
             }
-            else{
-              
-            }
-                  
-
+            else{    }
 }
-
-
 }
 
 
 function repopulateAllProjectArray(){
     
         removeAllTodoHTML();
-      repopulateHTMLFromArray(allProjects);
+     repopulateHTMLFromArray(allProjects, 0);
 
+    
       const allProjectButtons = document.querySelectorAll('.editprojectbutton');
-      let counter = 0;
+     let counter = 0; //for project addition 
       allProjectButtons.forEach(element => {
         element.addEventListener('dblclick',editProjects);
         element.setAttribute('id',counter);
         counter++;
       })
+     
 
 }
 function repopulateCurrentProject(num){
     console.log('test' + num);
-    let counter = 0;
+     //for adding project
     // const todoDiv = document.querySelector('.todo');
     // const allProjectButtons = document.querySelectorAll('.editprojectbutton');
+    let counter = 0;
     allProjects.forEach(element => {
+       
         if(counter == num){
             
           var holderCardDiv =   createNewProjectHTML(element.getProjectName()).newTodoDiv;
@@ -171,14 +168,14 @@ function checkProjectView(boolean){
         console.log("Single Project View projectNum:" +projectNum);
 
         repopulateCurrentProject(projectNum);
-        repopulateHTMLFromArray(allProjects[projectNum]);
-       
+       counter =  repopulateHTMLFromArray(allProjects[projectNum], 0);
+       console.log(counter);
         const todoEditButton = document.querySelectorAll('.editbutton'); 
-        let counter = 0;
+      let count = 0;
         todoEditButton.forEach(element => {
             editButtonListener(element);
-            element.parentElement.setAttribute('id',counter)
-            counter++;
+            element.parentElement.setAttribute('id',count)
+            count++;
         });
         return boolean;
 
@@ -188,7 +185,7 @@ function checkProjectView(boolean){
 
 function editProjects(event){
     event.preventDefault();
-    
+    counter = 0;
    
    
       if(projectView){  //true is hidden
@@ -196,6 +193,7 @@ function editProjects(event){
       }
       else{
         projectNum = event.currentTarget.id;
+      
         // console.log("edit project projectView:" + projectView)
     }
     checkProjectView(projectView);
@@ -230,21 +228,38 @@ function doTodoFormSubmission(event){
   console.log("submit form submission");
     
      const todoData =  getFormData(inputTitleData,inputDescriptionData,dateInputData,priorityData);
-     const todoItems = todoProject(allProjects[projectNum].getProjectName());
-  // Here
+     const newTodoItem = todoProject(allProjects[projectNum].getProjectName());
+       
+    
+
+     for(let i = 0; i < allProjects[projectNum].getProject().length; i++){
+       
+        newTodoItem.addProjectItem(allProjects[projectNum].getProject()[i]);
+     }
+  
+  console.log("afe" +newTodoItem.getProjectName());
     if(todoData.titleText.length!=0){   
 
-        console.log(allProjects[projectNum]);
-    todoItems.addProjectItem(updateArrayTodoList(todoData.titleText,todoData.descriptionText,todoData.dateText,todoData.priorityText));
+        // console.log(allProjects[projectNum]);
+        console.log(counter);
+        newTodoItem.addProjectItem(updateArrayTodoList(todoData.titleText,todoData.descriptionText,todoData.dateText,todoData.priorityText));
+        
     const holderTodo = createNewTodoItemHTML(todoData.titleText,todoData.descriptionText,
                 todoData.dateText,todoData.priorityText,counter);
-    counter++;
+  counter++;
     todoCheckButtonListener(holderTodo.newTodoDeleteButton);
     editButtonListener(holderTodo.newTodoEditButton);
      resetFormData(inputTitleData,inputDescriptionData,dateInputData,priorityData,submitButton);
      
      console.log('do submission on todo Item  ProjectNum:' + projectNum)
-     allProjects.splice(projectNum,1,todoItems);
+
+//CREATE THE PROJECT 
+//ADD THE STUFF TO THE PROJECT
+console.log(newTodoItem.getProject());
+    //  ADD A NEW PROJECT INTO ALLPROJECTS
+     allProjects.splice(projectNum,1,newTodoItem);
+
+    
      
 }
 }
@@ -264,7 +279,9 @@ function clickedEditButton(event){
                 window.scrollTo(0,0);
             editNumber = findArrayNum(element);
                 console.log(editNumber);
-            const todoItemHolder = todoItems.getProjectItem(editNumber);
+
+
+            const todoItemHolder = allProjects[projectNum].getProject()[editNumber];
                 // update ARRAY but also RE-ADD ALL ITEMS IN HTML
             
             
