@@ -306,7 +306,7 @@ function makeHelpCard(){
 
 
   helpText.textContent = "✔: requires a doubleclick! \n Title: is Required! " + 
-  "\n Click Card to EDIT or VIEW  ";
+  "\n Click Card to EDIT or VIEW  \n Version: 1.1.5";
   newDiv.appendChild(helpText)
 
 
