@@ -218,12 +218,8 @@ function repopulateHTMLFromArray(todoItems,counter){
   
 }
 function addCurrentHTMLFromArray(todoProjectArray,currentNum){
-
-
-  createNewProjectHTML(todoProjectArray[currentNum].getProjectName());
   
-
- 
+  return createNewProjectHTML(todoProjectArray[currentNum].getProjectName());
 
 }
 
@@ -348,7 +344,7 @@ function removeAllTodoHTML(){
 export {createHTMLInitial,addInputForm, addNewTodo,updateTodo,getCurrentDate,
   createNewTodoItemHTML,makeHelpCard,toggleHelp,removeAllTodoHTML,getFormProjectData,
   findArrayNum,removeFromHTML,repopulateHTMLFromArray,getFormData,resetFormData
-  ,addCurrentHTMLFromArray
+  ,addCurrentHTMLFromArray,createNewProjectHTML
 };
 
 

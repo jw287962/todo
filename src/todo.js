@@ -1,7 +1,7 @@
 export {todoItem,todoProject};
 const todoProject = (name) =>  {
     const todoProject = [];
-    const projectName = name;
+    var projectName = name;
 
       function addProjectItem(todoItems){
         todoProject.push(todoItems);
