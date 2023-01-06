@@ -305,7 +305,7 @@ function makeHelpCard(){
   helpText.classList.add('helptext');
 
 
-  helpText.textContent = "✔: requires a doubleclick! \n Title: is Required! " + 
+  helpText.textContent = "✔: requires a doubleclick!\n Project requires doubleclick \n Title: is Required! " + 
   "\n Click Card to EDIT or VIEW  \n Version: 1.1.5";
   newDiv.appendChild(helpText)
 
@@ -323,7 +323,7 @@ const helpCard = document.querySelector('.helpdiv');
       if(helpToggle){
           helpCard.style.visibility = "visible";
           helpButton.style.height = "100vh";
-          helpButton.style.width = "100vh";
+          helpButton.style.width = "100vw";
           helpButton.style.opacity = "0.1";
           makeDark(helpToggle);
           helpToggle = false;
