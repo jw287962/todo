@@ -1,9 +1,10 @@
 
 import {todoItem,todoProject} from './todo.js'
 import './style.css'
-import {findArrayNum,removeFromHTML,repopulateHTMLFromArray,
+import {findArrayNum,removeFromHTML,repopulateHTMLFromArray,getFormProjectData,
     getFormData,resetFormData,createNewTodoItemHTML,makeHelpCard,
-    createHTMLInitial,addInputForm,toggleHelp,removeAllTodoHTML} from './addHtml.js'
+    createHTMLInitial,addInputForm,toggleHelp,removeAllTodoHTML
+,addCurrentHTMLFromArray} from './addHtml.js'
 import {isConfirmed,updateArrayTodoList} from './logic.js'
  
 const bodyDiv = document.querySelector('body');
@@ -21,44 +22,56 @@ const allProjects = [];
 const todoItems = todoProject("Default");
 
 var currentProjectName;
-
-
+let form = document.querySelector('.todoform');
+let inputTitleData = document.querySelector('.title');
+let inputDescriptionData = document.querySelector('.description');
+let dateInputData = document.querySelector('.date');
+let priorityData = document.querySelector('#priority');
+let submitButton = document.querySelector('.submittodo');
 var editNumber;
-const form = document.querySelector('form');
+
 let counter = 0;
 form.addEventListener('submit', doTodoFormSubmission);
-const inputTitleData = document.querySelector('.title');
-const inputDescriptionData = document.querySelector('.description');
-const dateInputData = document.querySelector('.date');
-const priorityData = document.querySelector('#priority');
-const submitButton = document.querySelector('.submittodo');
+
+
+const todoDiv = document.querySelector('.todo');
 toggleHelp();
 
-var projectView= false;
+
+var projectView= true;
 const projectsButton = document.querySelector('.projectsbutton');
 
-let projectNum = 0;
+
 allProjects.push(todoItems);
+var projectNum = allProjects.length;
+
 repopulateAllProjectArray();
+
 projectsButton.addEventListener('click', makeNewProject());
+
 
 function makeNewProject(){
     return function(){
-        const allProjectButtons = document.querySelectorAll('.editprojectbutton');
-  
+        console.log('make new Project')
+        
+        resetFormListeners();
 
-        
-        
-    form.removeEventListener('submit', doTodoFormSubmission);
-       
-    repopulateAllProjectArray();
-    checkProjectView(projectView);
-    
         // inputDescriptionData.classList.remove('hidden');
-
-                         form.addEventListener('submit', doTodoFormSubmission);
+            if(checkProjectView(projectView)){  //true is hidden
+      
+              // submitButton.replaceWith(submitButton.cloneNode(true));
+           
+              form.addEventListener('submit', addNewProject)
+             
+            }
+            else{
+              
+            }
+                  
 
 }
+
+
 }
 
 // GET FORM DATA  + ADD NEW TODO ELEMENT IN HTML
@@ -66,48 +79,88 @@ function repopulateAllProjectArray(){
     
         removeAllTodoHTML();
       repopulateHTMLFromArray(allProjects);
+
       const allProjectButtons = document.querySelectorAll('.editprojectbutton');
       allProjectButtons.forEach(element => {
-        element.addEventListener('dblclick',editProjects());
+        element.addEventListener('dblclick',editProjects);
       })
-     
-     
 
+}
+function addCurrentProjectCard(){
+    
+    addCurrentHTMLFromArray(allProjects,projectNum-1);
+    // const allProjectButtons = document.querySelectorAll('.editprojectbutton');
+    
 }
 
 function checkProjectView(boolean){
     if(boolean){
+        console.log('make hidden');
         removeAllTodoHTML()
         inputDescriptionData.classList.add('hidden');
         dateInputData.classList.add('hidden');
         priorityData.parentElement.classList.add('hidden');
         submitButton.value = "Submit Project Name"
         projectView = !boolean;
-       
+        
+        resetFormListeners();
+        form.addEventListener('submit', addNewProject);
+
        repopulateAllProjectArray();
+       return boolean;
     }
     else{
+        console.log('make visible');
         inputDescriptionData.classList.remove('hidden');
         dateInputData.classList.remove('hidden');
         priorityData.parentElement.classList.remove('hidden');
         submitButton.value = "SET TODO"
         projectView = !boolean;
+        console.log(projectNum);
 
-        repopulateHTMLFromArray(allProjects[projectNum]);
+        resetFormListeners();
+        form.addEventListener('submit', doTodoFormSubmission);
+        repopulateHTMLFromArray(allProjects[projectNum-1]);
+        return boolean;
     }
 }
 
-function editProjects(){
-    return function() {
-        checkProjectView(projectView);
+function editProjects(event){
+    event.preventDefault();
+    
+      if(checkProjectView(projectView)){  //true is hidden
+
+        // submitButton.replaceWith(submitButton.cloneNode(true));
+        resetFormListeners();
+        form.addEventListener('submit', addNewProject)
+        console.log('addeeventlistener for submitting new project name')
+      }
+      else{
+        
+    
     }
-   
+}
+function addNewProject(){
+    console.log('AddnewProject:  pushing new project Name changes');
+    const todoData =  getFormProjectData(inputTitleData);
+ 
+      if(todoData.length!=0){   
+      
+        
+        allProjects.addProjectItem()
+        
+        projectNum = allProjects.length;
+        
+        // allProjects[projectNum].getProjectName()
+
+      repopulateAllProjectArray();
+      
+      }
 }
 // FUNCTIONS BELOW
 function doTodoFormSubmission(event){
-    event.preventDefault();
-  
-  
+  event.preventDefault();
+  console.log("submit form submission");
      const todoData =  getFormData(inputTitleData,inputDescriptionData,dateInputData,priorityData);
   // Here
     if(todoData.titleText.length!=0){   
@@ -119,18 +172,23 @@ function doTodoFormSubmission(event){
     editButtonListener(holderTodo.newTodoEditButton);
      resetFormData(inputTitleData,inputDescriptionData,dateInputData,priorityData,submitButton);
      
-     allProjects.splice(projectNum,1,todoItems);
+     allProjects.splice(projectNum-1,1,todoItems);
      
 }
 }
 
 
 function editButtonListener(editButtonDiv){
-    editButtonDiv.addEventListener('click', clickedEditButton(editButtonDiv));
+    console.log(editButtonDiv + "editbuttondiv")
+    editButtonDiv.addEventListener('click', clickedEditButton);
 }
-function clickedEditButton(element){
+function clickedEditButton(event){
    
-        return function(){
+     event.preventDefault();
+       
+            let element = event.currentTarget;
+           
+            console.log('clicked edit button. Await Submission' + element);
             if(isConfirmed()){
                 window.scrollTo(0,0);
             editNumber = findArrayNum(element);
@@ -144,14 +202,20 @@ function clickedEditButton(element){
             inputDescriptionData.value = todoItemHolder.getDescription();
             dateInputData.value = todoItemHolder.getDueDate();
             priorityData.value = todoItemHolder.getPriority().toUpperCase();
-            //  neeed to get updated data
-            form.removeEventListener('submit', doTodoFormSubmission);
+         
+           resetFormListeners();
             form.addEventListener('submit', updateTodoChanges);
-    
-    } }   }
+            } 
+  }
 
     function updateTodoChanges(event){
-        console.log("UPDATETODOCHANGE" +event);
+       
+            event.preventDefault();
+            console.log('update the submission Changes');
+        
+        event.preventDefault();
+
+        
         const todoData =  getFormData(inputTitleData,inputDescriptionData,dateInputData,priorityData);
 // Here
 
@@ -160,22 +224,35 @@ function clickedEditButton(element){
         todoItems.replaceProjectItem(editNumber,holderTodo);
         removeAllTodoHTML();
         counter = 0;
-        
+
+        addCurrentProjectCard();
         counter =  repopulateHTMLFromArray(todoItems,counter);
     
         readdListenerAfterRemoval();
-
-        event.preventDefault();
-
-        
         resetFormData(inputTitleData,inputDescriptionData,dateInputData,priorityData,submitButton);
-        allProjects.splice(0,1,todoItems);
-        form.removeEventListener('submit', updateTodoChanges);
+        allProjects.splice(projectNum-1,1,todoItems);
+        console.log('updateChanges');
+        resetFormListeners();
         form.addEventListener('submit', doTodoFormSubmission);
-        
+    
     }
 
+function resetFormListeners(){
+    
+    form.replaceWith(form.cloneNode(true));
    
+    redefineAllFormElementNode();
+   }
+
+function redefineAllFormElementNode(){
+    
+    form = document.querySelector('.todoform');
+    inputTitleData = document.querySelector('.title');
+    inputDescriptionData = document.querySelector('.description');
+    dateInputData = document.querySelector('.date');
+    priorityData = document.querySelector('#priority');
+    submitButton = document.querySelector('.submittodo');
+}
 function todoCheckButtonListener(holderTodo){
     holderTodo.addEventListener("dblclick", removeTodoElements(holderTodo)); 
 }
@@ -190,7 +267,7 @@ const removeTodoElements = (element) =>{
             removeAllTodoHTML();
      
         counter =  repopulateHTMLFromArray(todoItems,counter);
-        allProjects.splice(projectNum,1,todoItems);
+        allProjects.splice(projectNum-1,1,todoItems);
         readdListenerAfterRemoval();
         
         } } }

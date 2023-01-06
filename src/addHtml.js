@@ -55,6 +55,7 @@ function addInputForm(){
 // create INPUT for getting text
 
   const form = document.createElement('form');
+  form.classList.add('todoform');
  
   const fieldset = document.createElement('fieldset');
   const inputTitleHTML = document.createElement('input');
@@ -216,11 +217,21 @@ function repopulateHTMLFromArray(todoItems,counter){
  }
   
 }
+function addCurrentHTMLFromArray(todoProjectArray,currentNum){
+
+
+  createNewProjectHTML(todoProjectArray[currentNum].getProjectName());
+  
+
+ 
+
+}
+
 function createNewProjectHTML(todoProject){
   const projectDiv = document.querySelector('.todo'); 
   
   const holderProject = addNewProject(todoProject);
-  console.log(holderProject);
+
   projectDiv.appendChild(holderProject.newTodoDiv);
 
    return holderProject;
@@ -257,6 +268,12 @@ function getFormData(inputTitleData,inputDescriptionData,dateInputData,priorityD
   const dateText = dateInputData.value;
   const priorityText = priorityData.value.toLowerCase();
   return {titleText,descriptionText,dateText,priorityText}
+}
+function getFormProjectData(projectName){
+  
+  const titleText = projectName.value;
+
+  return titleText;
 }
 
 function resetFormData(inputTitleData,inputDescriptionData,dateInputData,priorityData,submitButton){
@@ -329,8 +346,9 @@ function removeAllTodoHTML(){
 }
 
 export {createHTMLInitial,addInputForm, addNewTodo,updateTodo,getCurrentDate,
-  createNewTodoItemHTML,makeHelpCard,toggleHelp,removeAllTodoHTML,
+  createNewTodoItemHTML,makeHelpCard,toggleHelp,removeAllTodoHTML,getFormProjectData,
   findArrayNum,removeFromHTML,repopulateHTMLFromArray,getFormData,resetFormData
+  ,addCurrentHTMLFromArray
 };
 
 
