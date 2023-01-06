@@ -301,25 +301,27 @@ function clickedEditButton(event){
        
             event.preventDefault();
             console.log('update the submission Changes');
-        
-        event.preventDefault();
+// console.log(event.currentTarget)
 
+            // editNumber = findArrayNum(event.currentTarget);
+            console.log(editNumber);
+      
         
         const todoData =  getFormData(inputTitleData,inputDescriptionData,dateInputData,priorityData);
 // Here
 
-        const holderTodo = updateArrayTodoList(todoData.titleText,todoData.descriptionText,todoData.dateText,todoData.priorityText);
+        const holderTodoItem = updateArrayTodoList(todoData.titleText,todoData.descriptionText,todoData.dateText,todoData.priorityText);
         // console.log("TEST Priority: " + holderTodo.getPriority())
-        todoItems.replaceProjectItem(editNumber,holderTodo);
+        const todoItem = allProjects[projectNum].replaceProjectItem(editNumber,holderTodoItem);
         removeAllTodoHTML();
         counter = 0;
 
         addCurrentProjectCard();
-        counter =  repopulateHTMLFromArray(todoItems,counter);
+        counter =  repopulateHTMLFromArray(allProjects[projectNum],counter);
     
         readdListenerAfterRemoval();
         resetFormData(inputTitleData,inputDescriptionData,dateInputData,priorityData,submitButton);
-        allProjects.splice(projectNum,1,todoItems);
+       
         console.log('updateChanges');
         resetFormListeners();
         form.addEventListener('submit', doTodoFormSubmission);
