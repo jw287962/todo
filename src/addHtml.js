@@ -199,7 +199,7 @@ function removeFromHTML(query){
 }
 
 function repopulateHTMLFromArray(todoItems,counter){
-console.log("repopulate method" +counter);
+
  if(todoItems.constructor.name === 'Object'){
   todoItems = todoItems.getProject();
   todoItems.forEach(element => {

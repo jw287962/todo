@@ -87,7 +87,7 @@ function repopulateAllProjectArray(){
 
 }
 function repopulateCurrentProject(num){
-    console.log('test' + num);
+
      //for adding project
     // const todoDiv = document.querySelector('.todo');
     // const allProjectButtons = document.querySelectorAll('.editprojectbutton');
@@ -300,8 +300,7 @@ function clickedEditButton(event){
     function updateTodoChanges(event){
        
             event.preventDefault();
-            console.log('update the submission Changes');
-// console.log(event.currentTarget)
+      
 
             // editNumber = findArrayNum(event.currentTarget);
             console.log(editNumber);
@@ -321,8 +320,7 @@ function clickedEditButton(event){
     
         readdListenerAfterRemoval();
         resetFormData(inputTitleData,inputDescriptionData,dateInputData,priorityData,submitButton);
-       
-        console.log('updateChanges');
+     
         resetFormListeners();
         form.addEventListener('submit', doTodoFormSubmission);
     
