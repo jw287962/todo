@@ -119,9 +119,26 @@ function addCurrentProjectCard(){
     // const allProjectButtons = document.querySelectorAll('.editprojectbutton');
     
 }
+function removeProjectCompletely(event){
+ const removeProjectNum = event.currentTarget.previousElementSibling.id;
+    allProjects.splice(removeProjectNum,1);
 
+    repopulateAllProjectArray();
+}
+function addListenerProjectDelete(){
+ 
+    const everyProjectDeleteButton = document.querySelectorAll('.deleteprojectbutton');
+    console.log(everyProjectDeleteButton);
+    everyProjectDeleteButton.forEach(element => {
+        console.log(element);
+        element.addEventListener('click', removeProjectCompletely);
+        
+    });
+
+}
 function checkProjectView(boolean){
     removeAllTodoHTML()
+  
     if(boolean){
         console.log('make hidden' + projectView );
         
@@ -134,8 +151,9 @@ function checkProjectView(boolean){
         
         resetFormListeners();
         form.addEventListener('submit', addNewProject);
-
        repopulateAllProjectArray();
+
+       addListenerProjectDelete();
        return boolean;
     }
     else{
@@ -230,8 +248,6 @@ function doTodoFormSubmission(event){
      
 }
 }
-
-
 
 function editButtonListener(editButtonDiv){
     console.log(editButtonDiv + "editbuttondiv")
@@ -341,6 +357,9 @@ function readdListenerAfterRemoval(){
         editButtonListener(element);
     });
 }
+
+
+
 
 
 // PRINTS TODO ARRAY titles

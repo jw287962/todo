@@ -163,7 +163,7 @@ function addNewTodo(titleText,descriptionText,dueDate,priorityText,counter){
   return {newTodoDiv,newTodoDeleteButton,newTodoEditButton};
 }
 function addNewProject(projectTitle){
-  const newTodoDeleteButton = makeButton('delete');
+  const newTodoDeleteButton = makeButton('deleteproject');
 
   const newTodoEditButton = makeButton('editproject');
 
@@ -252,6 +252,10 @@ function makeButton(text){
     
     text = '✔';
   }
+  if(text == "DELETEPROJECT"){
+    text = '❌';
+  }
+
   
   button.textContent = text;
 return button;

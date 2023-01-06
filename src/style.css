@@ -205,7 +205,7 @@ button{
     margin-right: 5px;
     height: 25px;
 }
-.deletebutton, .editbutton,.editprojectbutton{
+.deletebutton, .editbutton,.editprojectbutton,.deleteprojectbutton{
     
     font-size: large;
     
@@ -229,6 +229,15 @@ button{
     left: 0px;
    
     opacity: 0;
+}
+.deleteprojectbutton{
+
+    position: absolute;
+    /* bottom: var(--toTop); */
+    left: calc(var(--toRight)*1.8);
+    top: 25%;
+    
+   z-index: 3;
 }
 .editbutton{
     padding: 50px 205px;
