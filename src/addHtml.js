@@ -210,7 +210,6 @@ console.log("repopulate method" +counter);
  }
  else if(todoItems.constructor.name === 'Array'){
   todoItems.forEach(element => {
-
     createNewProjectHTML(element.getProjectName());
     counter++
   });
