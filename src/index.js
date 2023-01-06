@@ -1,7 +1,7 @@
 
-import {todoProject} from './todo.js'
+import {todoItem,todoProject} from './todo.js'
 import './style.css'
-import {findArrayNum,repopulateHTMLFromArray,getFormProjectData,
+import {getCurrentDate,findArrayNum,repopulateHTMLFromArray,getFormProjectData,
     getFormData,resetFormData,createNewTodoItemHTML,makeHelpCard,
     createHTMLInitial,addInputForm,toggleHelp,removeAllTodoHTML
 ,addCurrentHTMLFromArray,createNewProjectHTML} from './addHtml.js'
@@ -40,17 +40,23 @@ toggleHelp();
 
 var projectView= true;
 const projectsButton = document.querySelector('.projectsbutton');
-
+const saveButton = document.querySelector('.savebutton');
 
 allProjects.push(todoItems);
 var projectLength = allProjects.length;
 
 var projectNum = 0;
 // For default View
-repopulateAllProjectArray();
+
+
+
 
 projectsButton.addEventListener('click', makeNewProject());
+saveButton.addEventListener('click', saveAllProjects);
 
+repopulateAllProjectArray();
+
+getAllProjectStorage();
 
 function makeNewProject(){
     return function(){
@@ -111,7 +117,7 @@ function repopulateCurrentProject(num){
 function addCurrentProjectCard(){
     
     const currentDivHolder = addCurrentHTMLFromArray(allProjects,projectNum).newTodoDiv;
-    console.log(currentDivHolder);
+
     currentDivHolder.addEventListener('dblclick',editProjects);
     // const allProjectButtons = document.querySelectorAll('.editprojectbutton');
     
@@ -127,7 +133,7 @@ function addListenerProjectDelete(){
     const everyProjectDeleteButton = document.querySelectorAll('.deleteprojectbutton');
     console.log(everyProjectDeleteButton);
     everyProjectDeleteButton.forEach(element => {
-        console.log(element);
+
         element.addEventListener('click', removeProjectCompletely);
         
     });
@@ -165,11 +171,10 @@ function checkProjectView(boolean){
         resetFormListeners();
         
         form.addEventListener('submit', doTodoFormSubmission);
-        console.log("Single Project View projectNum:" +projectNum);
-
+    
         repopulateCurrentProject(projectNum);
        counter =  repopulateHTMLFromArray(allProjects[projectNum], 0);
-       console.log(counter);
+
         const todoEditButton = document.querySelectorAll('.editbutton'); 
       let count = 0;
         todoEditButton.forEach(element => {
@@ -236,12 +241,11 @@ function doTodoFormSubmission(event){
        
         newTodoItem.addProjectItem(allProjects[projectNum].getProject()[i]);
      }
-  
-  console.log("afe" +newTodoItem.getProjectName());
+
     if(todoData.titleText.length!=0){   
 
         // console.log(allProjects[projectNum]);
-        console.log(counter);
+       
         newTodoItem.addProjectItem(updateArrayTodoList(todoData.titleText,todoData.descriptionText,todoData.dateText,todoData.priorityText));
         
     const holderTodo = createNewTodoItemHTML(todoData.titleText,todoData.descriptionText,
@@ -274,12 +278,11 @@ function clickedEditButton(event){
        
             let element = event.currentTarget;
            
-            console.log('clicked edit button. Await Submission todo Items' + element);
+           
             if(isConfirmed()){
                 window.scrollTo(0,0);
             editNumber = findArrayNum(element);
-                console.log(editNumber);
-
+      
 
             const todoItemHolder = allProjects[projectNum].getProject()[editNumber];
                 // update ARRAY but also RE-ADD ALL ITEMS IN HTML
@@ -303,7 +306,7 @@ function clickedEditButton(event){
       
 
             // editNumber = findArrayNum(event.currentTarget);
-            console.log(editNumber);
+         
       
         
         const todoData =  getFormData(inputTitleData,inputDescriptionData,dateInputData,priorityData);
@@ -342,9 +345,7 @@ function redefineAllFormElementNode(){
     priorityData = document.querySelector('#priority');
     submitButton = document.querySelector('.submittodo');
 }
-function todoCheckButtonListener(holderTodo){
-    holderTodo.addEventListener("dblclick", removeTodoElements(holderTodo)); 
-}
+
 // CHECK IF COMPLETION AND UPDATE
 const removeTodoElements = (element) =>{
 
@@ -361,6 +362,9 @@ const removeTodoElements = (element) =>{
         
         } } }
 
+        function todoCheckButtonListener(holderTodo){
+            holderTodo.addEventListener("dblclick", removeTodoElements(holderTodo)); 
+        }
 function readdListenerAfterRemoval(){
     const deleteButtonDivs = document.querySelectorAll('.deletebutton');
     deleteButtonDivs.forEach(element => {
@@ -384,13 +388,56 @@ function printArray(array){
        }
 }
 
-function populateStorage(){
-    localStorage.setItem('todoItems', todoItems.getProject())
+function saveAllProjects(){
+    console.log('save');
+    localStorage.clear();
+
+    populateAllProjectStorage(allProjects);
+}
+function populateAllProjectStorage(allProjects){
+   
+
+    for(let i = 0; i < allProjects.length;i++){
+        localStorage.setItem(`outerProjectLength`,allProjects.length);
+        localStorage.setItem(`projectName${i}`,allProjects[i].getProjectName());
+        localStorage.setItem(`innerProjectLength${i}`,allProjects[i].getProject().length);
+
+
+        for(let inner = 0; inner < allProjects[i].getProject().length;inner++){
+       
+       
+        localStorage.setItem(`projecttitle${i}`, allProjects[i].getProject()[inner].getTitle())
+        localStorage.setItem(`projectdescription${i}`, allProjects[i].getProject()[inner].getDescription())
+    }}
 
 }
-function getTodoItemsStorage(){
-    const holder = localStorage.getItem('todoItems');
-    console.log(holder);
+function getAllProjectStorage(){
+    let outerLimit =  localStorage.getItem(`outerProjectLength`);
+
+    for(let i = 0; i < outerLimit;i++){
+       const projectName =  localStorage.getItem(`projectName${i}`);
+     const newTodoItem = todoProject(projectName);
+     
+       let innerLimit = localStorage.getItem(`innerProjectLength${i}`);
+        for(let inner = 0; inner < innerLimit;inner++){
+           const title = (localStorage.getItem(`projecttitle${i}`));
+            const description = (localStorage.getItem(`projectdescription${i}`));
+            const date = getCurrentDate();
+            const priority = "LOW";
+          
+            newTodoItem.addProjectItem(updateArrayTodoList(title,description,date,priority));
+           
+      
+    }
+    
+   
+    allProjects.splice(i,1,newTodoItem);
+
+    console.log(allProjects[0].getProject()[0]);
+    
+    // repopulateHTMLFromArray is for todo cards not projectcards
+    repopulateHTMLFromArray(allProjects[i],0);
+} 
 }
 
 function addFromStorage(){

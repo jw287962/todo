@@ -75,6 +75,7 @@ body{
     flex-direction: column;
     display: flex;
 }
+
 .header >p{
     text-align: center;
     font-size: larger;
@@ -208,10 +209,8 @@ button{
 .deletebutton, .editbutton,.editprojectbutton,.deleteprojectbutton{
     
     font-size: large;
-    
     background-color: white;
     border: 1px solid grey;
-  
 }
 .deletebutton{
     color: green;
@@ -245,8 +244,8 @@ button{
 .editprojectbutton{
     padding: 37px 175px;
 }
-.deletebutton:active, .editbutton:active, .helpbutton:active,.todoedit:active{
-    
+.headerbuttondiv>button:active,.deletebutton:active, .editbutton:active, .helpbutton:active,.todoedit:active{
+    border: 2px solid black;
     top: 2px;
 }
 /*  */

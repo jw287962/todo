@@ -22,6 +22,7 @@ function createHTMLInitial(){
     
     const helpButton = makeButton('help');
     const projectsButton = makeButton('projects');
+    const saveButton = makeButton('save');
       // make TODO DIV BODY
     const todoDiv = document.createElement('div');
     todoDiv.classList.add('todo');
@@ -33,6 +34,7 @@ function createHTMLInitial(){
     headerDiv.appendChild(helpButtonDiv);
     helpButtonDiv.appendChild(helpButton);
     helpButtonDiv.appendChild(projectsButton);
+    helpButtonDiv.appendChild(saveButton);
     contentDiv.appendChild(headerDiv);
     contentDiv.appendChild(todoDiv);
 
