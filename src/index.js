@@ -1,7 +1,7 @@
 
-import {todoItem,todoProject} from './todo.js'
+import {todoProject} from './todo.js'
 import './style.css'
-import {findArrayNum,removeFromHTML,repopulateHTMLFromArray,getFormProjectData,
+import {findArrayNum,repopulateHTMLFromArray,getFormProjectData,
     getFormData,resetFormData,createNewTodoItemHTML,makeHelpCard,
     createHTMLInitial,addInputForm,toggleHelp,removeAllTodoHTML
 ,addCurrentHTMLFromArray,createNewProjectHTML} from './addHtml.js'
@@ -374,8 +374,6 @@ function readdListenerAfterRemoval(){
         editButtonListener(element);
     });
 }
-
-
 
 
 
