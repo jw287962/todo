@@ -406,8 +406,8 @@ function populateAllProjectStorage(allProjects){
         for(let inner = 0; inner < allProjects[i].getProject().length;inner++){
        
        
-        localStorage.setItem(`projecttitle${i}`, allProjects[i].getProject()[inner].getTitle())
-        localStorage.setItem(`projectdescription${i}`, allProjects[i].getProject()[inner].getDescription())
+        localStorage.setItem(`projecttitle${i}${inner}`, allProjects[i].getProject()[inner].getTitle())
+        localStorage.setItem(`projectdescription${i}${inner}`, allProjects[i].getProject()[inner].getDescription())
     }}
 
 }
@@ -420,8 +420,8 @@ function getAllProjectStorage(){
      
        let innerLimit = localStorage.getItem(`innerProjectLength${i}`);
         for(let inner = 0; inner < innerLimit;inner++){
-           const title = (localStorage.getItem(`projecttitle${i}`));
-            const description = (localStorage.getItem(`projectdescription${i}`));
+           const title = (localStorage.getItem(`projecttitle${i}${inner}`));
+            const description = (localStorage.getItem(`projectdescription${i}${inner}`));
             const date = getCurrentDate();
             const priority = "LOW";
           
@@ -436,8 +436,9 @@ function getAllProjectStorage(){
     console.log(allProjects[0].getProject()[0]);
     
     // repopulateHTMLFromArray is for todo cards not projectcards
-    repopulateHTMLFromArray(allProjects[i],0);
+   
 } 
+repopulateHTMLFromArray(allProjects[0],0);
 }
 
 function addFromStorage(){
