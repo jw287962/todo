@@ -54,7 +54,7 @@ var projectNum = 0;
 projectsButton.addEventListener('click', makeNewProject());
 saveButton.addEventListener('click', saveAllProjects);
 
-repopulateAllProjectArray();
+
 
 getAllProjectStorage();
 
@@ -89,9 +89,22 @@ function repopulateAllProjectArray(){
         element.setAttribute('id',counter);
         counter++;
       })
-     
-
 }
+function repopulateFirstProjectArray(){
+    
+    removeAllTodoHTML();
+ repopulateHTMLFromArray(allProjects, 0);
+
+
+  const allProjectButtons = document.querySelectorAll('.editprojectbutton');
+ let counter = 0; //for project addition 
+  allProjectButtons.forEach(element => {
+    element.addEventListener('dblclick',editProjects);
+    element.setAttribute('id',counter);
+    counter++;
+  })
+}
+
 function repopulateCurrentProject(num){
 
      //for adding project
@@ -412,6 +425,7 @@ function populateAllProjectStorage(allProjects){
 
 }
 function getAllProjectStorage(){
+  
     let outerLimit =  localStorage.getItem(`outerProjectLength`);
 
     for(let i = 0; i < outerLimit;i++){
@@ -429,7 +443,7 @@ function getAllProjectStorage(){
            
       
     }
-    
+ 
    
     allProjects.splice(i,1,newTodoItem);
 
@@ -438,6 +452,7 @@ function getAllProjectStorage(){
     // repopulateHTMLFromArray is for todo cards not projectcards
    
 } 
+addCurrentProjectCard();
 repopulateHTMLFromArray(allProjects[0],0);
 }
 
