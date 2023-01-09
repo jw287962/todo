@@ -1,4 +1,5 @@
 import { todoProject } from './todo';
+
 import './style.css';
 import {
   getCurrentDate,
@@ -9,8 +10,8 @@ import {
   resetFormData,
   createNewTodoItemHTML,
   makeHelpCard,
-  createHTMLInitial,
-  addInputForm,
+  addMenuDropDown,
+//   addInputForm,
   toggleHelp,
   removeAllTodoHTML,
   addCurrentHTMLFromArray,
@@ -18,13 +19,17 @@ import {
 } from './addHtml';
 import { isConfirmed, updateArrayTodoList } from './logic';
 
-const bodyDiv = document.querySelector("body");
-bodyDiv.appendChild(createHTMLInitial()); // makes #content and add header
+makeHelpCard();
 
-const contentDiv = document.getElementById("content");
-contentDiv.appendChild(addInputForm()); // add input form under contentDiv
+ // makes #content and add header
 
-bodyDiv.appendChild(makeHelpCard());
+// const contentDiv = document.getElementById("content");
+// contentDiv.appendChild(addInputForm()); // add input form under contentDiv
+
+
+
+
+
 
 // need to update after input text is entered and user clicks enter
 
@@ -55,26 +60,25 @@ const projectsButton = document.querySelector(".projectsbutton");
 const saveButton = document.querySelector(".savebutton");
 const menuButton = document.querySelector(".menubutton");
 
-const menusButton = document.querySelector(".menusbutton");
+// const menusButton = document.querySelector(".menusbutton");
 allProjects.push(todoItems);
-// let projectLength = allProjects.length;
+let projectLength = allProjects.length;
 
 let projectNum = 0;
 // For default View
 
-const test = {
-  home: ["as"],
-};
+// const test = {
+//   home: ["as"],
+// };
+addMenuDropDown(menuButton);
+// test.work = ["hi"];
 
-test.work = ["hi"];
-
-console.log(test);
+// console.log(test);
 
 projectsButton.addEventListener("click", makeNewProject());
 saveButton.addEventListener("click", saveAllProjects);
 menuButton.addEventListener('click', menuButtonChange);
 
-    
 
 
 
@@ -91,6 +95,7 @@ function menuButtonChange(){
 }
 function makeNewProject() {
   return function () {
+
     console.log("make new Project");
     resetFormListeners();
     // inputDescriptionData.classList.remove('hidden');
@@ -238,6 +243,7 @@ function addNewProject(event) {
 }
 // FUNCTIONS BELOW
 function doTodoFormSubmission(event) {
+    
   event.preventDefault();
   console.log("submit form submission");
 

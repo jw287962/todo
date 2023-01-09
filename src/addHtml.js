@@ -1,135 +1,25 @@
 import { el } from "date-fns/locale";
 import { format } from "../node_modules/date-fns";
 import { makeDark } from "./logic.js";
-function createHTMLInitial() {
-  // CREATES HEADER
-  //Create content Div
-  const contentDiv = document.createElement("div");
-  contentDiv.setAttribute("id", "content");
 
-  // header
-  const headerDiv = document.createElement("div");
-  headerDiv.classList.add("header");
-
-  const headerText = document.createElement("p");
-  headerText.textContent = "TODO LIST";
-
-  const helpButtonDiv = document.createElement("div");
-  helpButtonDiv.classList.add("headerbuttondiv");
-
-  const helpButton = makeButton("help");
-  const projectsButton = makeButton("projects");
-  const saveButton = makeButton("save");
-  const menuButton = makeButton("menu");
-
-  const menuButtonDiv = document.createElement("div");
-  menuButtonDiv.classList.add('menudiv')
-  const menuButton1 = makeButton("menus");
-  const menuButton2 = makeButton("menus");
-  const menuButton3 = makeButton("menus");
-menuButton1.classList.add('hidden');
-menuButton2.classList.add('hidden');
-menuButton3.classList.add('hidden');
-
-  
-  // make TODO DIV BODY
-  const todoDiv = document.createElement("div");
-
-  todoDiv.classList.add("todo");
-
-  // append
-  headerDiv.appendChild(headerText);
-  headerDiv.appendChild(helpButtonDiv);
-  helpButtonDiv.appendChild(helpButton);
-  helpButtonDiv.appendChild(projectsButton);
-  helpButtonDiv.appendChild(saveButton);
-
-  contentDiv.appendChild(headerDiv);
-  contentDiv.appendChild(todoDiv);
-  // helpButtonDiv.appendChild(menuButtonDiv);
-  helpButtonDiv.appendChild(menuButton);
-  menuButton.appendChild(menuButtonDiv);
-  menuButtonDiv.appendChild(menuButton1);
-  menuButtonDiv.appendChild(menuButton2);
-  menuButtonDiv.appendChild(menuButton3);
-
-  return contentDiv;
-}
 
 function getCurrentDate() {
   const today = new Date();
   const date = format(today, "yyyy-MM-dd");
   return date;
-}
+} 
 
-// CREATES FORM
-function addInputForm() {
-  const todoDiv = document.querySelector(".todo");
+function addMenuDropDown(element){
+const parent = element;
+  const button1 = makeButton("menus");
+  const button2 = makeButton("menus");
 
-  // create INPUT for getting text
 
-  const form = document.createElement("form");
-  form.classList.add("todoform");
+  parent.appendChild(button1);
+  parent.appendChild(button2);
 
-  const fieldset = document.createElement("fieldset");
-  const inputTitleHTML = document.createElement("input");
-
-  inputTitleHTML.classList.add("title");
-  inputTitleHTML.type = "text";
-  inputTitleHTML.placeholder = "Type TITLE for your todo reminder";
-  inputTitleHTML.maxLength = "25";
-  // const span = document.createElement('span');
-  // span.classList.add('spanerror')
-
-  const inputDescriptionHTML = document.createElement("textarea");
-  inputDescriptionHTML.classList.add("description");
-  // inputDescriptionHTML.type = "text";
-
-  inputDescriptionHTML.placeholder = "Type DESCRIPTION your todo reminder";
-
-  const dateInput = document.createElement("input");
-  dateInput.type = "date";
-  dateInput.value = getCurrentDate();
-  dateInput.classList.add("date");
-
-  const prioritySelect = document.createElement("select");
-  const priorityLabel = document.createElement("label");
-  priorityLabel.htmlFor = "priority";
-  priorityLabel.textContent = "Priority:";
-  prioritySelect.id = "priority";
-  prioritySelect.name = "priority";
-  prioritySelect.default = "LOW";
-  dateInput.classList.add("priority");
-  const lowOption = document.createElement("option");
-  lowOption.textContent = "LOW";
-  lowOption.value = "LOW";
-  lowOption.for = "priority";
-  const medOption = document.createElement("option");
-  medOption.textContent = "MED";
-  medOption.value = "MED";
-  const highOption = document.createElement("option");
-  highOption.textContent = "HIGH";
-  highOption.value = "HIGH";
-  priorityLabel.appendChild(prioritySelect);
-  prioritySelect.appendChild(lowOption);
-  prioritySelect.appendChild(medOption);
-  prioritySelect.appendChild(highOption);
-
-  const submit = document.createElement("input");
-  submit.value = "SET TODO";
-  submit.type = "submit";
-  submit.classList.add("submittodo");
-
-  todoDiv.appendChild(form);
-  form.appendChild(fieldset);
-  fieldset.appendChild(inputTitleHTML);
-  // fieldset.appendChild(span);
-  fieldset.appendChild(inputDescriptionHTML);
-  fieldset.appendChild(dateInput);
-  fieldset.appendChild(priorityLabel);
-  fieldset.appendChild(submit);
-
-  return todoDiv;
+  button1.classList.toggle('hidden');
+  button2.classList.toggle('hidden');
 }
 
 function addNewTodo(
@@ -228,6 +118,7 @@ function repopulateHTMLFromArray(todoItems, counter) {
   }
 }
 function addCurrentHTMLFromArray(todoProjectArray, currentNum) {
+
   return createNewProjectHTML(todoProjectArray[currentNum].getProjectName());
 }
 
@@ -320,6 +211,7 @@ function findArrayNum(element) {
 }
 
 function makeHelpCard() {
+  const bodyDiv = document.querySelector("body");
   const newDiv = document.createElement("div");
   newDiv.classList.add("helpdiv");
 
@@ -330,9 +222,10 @@ function makeHelpCard() {
     "✔: requires a doubleclick!\n Project requires doubleclick \n Title: is Required! " +
     "\n Click Card to EDIT or VIEW  \n Version: 1.1.5";
   newDiv.appendChild(helpText);
+  bodyDiv.appendChild(newDiv);
 
-  return newDiv;
 }
+
 let helpToggle = true;
 function toggleHelp() {
   const helpButton = document.querySelector(".helpbutton");
@@ -363,8 +256,8 @@ function removeAllTodoHTML() {
 }
 
 export {
-  createHTMLInitial,
-  addInputForm,
+
+  // addInputForm,
   addNewTodo,
   updateTodo,
   getCurrentDate,
@@ -380,4 +273,5 @@ export {
   resetFormData,
   addCurrentHTMLFromArray,
   createNewProjectHTML,
+  addMenuDropDown,
 };

@@ -101,6 +101,7 @@ body {
      padding-top: 6px;
       height: 30px;
       display: grid;
+   
       row-gap: 7px;
       justify-content: center;
      
@@ -110,7 +111,7 @@ body {
       height: 80px;
       background-color: white;
       background: rgba(255, 255, 255, 0);
-     
+      grid-auto-flow: column;
     }
     .menusbutton{
       background: rgba(255, 255, 255, 0);
