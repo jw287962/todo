@@ -3,7 +3,43 @@
   <head>
     <meta charset="utf-8">
     <title>Output Management</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1"><script defer src="main.js"></script></head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+<script defer src="main.js"></script></head>
   <body>
+    <div id="content">
+            <div class="header">
+              <p>TODO LIST</p>
+                        <div class="headerbuttondiv">
+                          <button class="helpbutton">HELP</button>
+                          <button class="projectsbutton">PROJECTS</button>
+                          <button class="savebutton">SAVE</button>
+                          <button class="menubutton">MENU
+                         
+                          </button>
+                        </div>
+                      </div>
+        <div class="todo">
+          <form class="todoform">
+            <fieldset>
+              <input class="title" type="text" placeholder="Type TITLE for your todo reminder" maxlength="25">
+              <textarea class="description" placeholder="Type DESCRIPTION your todo reminder">
+    
+              </textarea>
+              <input type="date" class="date priority">
+              <label for="priority">Priority:
+                  <select id="priority" name="priority">
+                    <option value="LOW">LOW</option>
+                    <option value="MED">MED</option>
+                    <option value="HIGH">HIGH</option>
+                  </select>
+                </label>
+                <input type="submit" value="SET TODO" class="submittodo">
+              </fieldset>
+            </form>
+      </div>
+ 
+  </div>
+      
   </body>
 </html>
