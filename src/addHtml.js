@@ -1,115 +1,123 @@
-import { el } from 'date-fns/locale';
-import {format} from '../node_modules/date-fns' 
+import { el } from "date-fns/locale";
+import { format } from "../node_modules/date-fns";
+import { makeDark } from "./logic.js";
+function createHTMLInitial() {
+  // CREATES HEADER
+  //Create content Div
+  const contentDiv = document.createElement("div");
+  contentDiv.setAttribute("id", "content");
 
-import {makeDark} from './logic.js'
-function createHTMLInitial(){
-        // CREATES HEADER 
-    //Create content Div
-    const contentDiv = document.createElement('div');
-    contentDiv.setAttribute('id','content');
+  // header
+  const headerDiv = document.createElement("div");
+  headerDiv.classList.add("header");
 
-    // header
-    const headerDiv = document.createElement('div');
-    headerDiv.classList.add('header');
+  const headerText = document.createElement("p");
+  headerText.textContent = "TODO LIST";
 
-    
-    const headerText = document.createElement('p');
-    headerText.textContent = "TODO LIST";
+  const helpButtonDiv = document.createElement("div");
+  helpButtonDiv.classList.add("headerbuttondiv");
 
+  const helpButton = makeButton("help");
+  const projectsButton = makeButton("projects");
+  const saveButton = makeButton("save");
+  const menuButton = makeButton("menu");
 
-    const helpButtonDiv = document.createElement('div');
-    helpButtonDiv.classList.add('headerbuttondiv');
-    
-    const helpButton = makeButton('help');
-    const projectsButton = makeButton('projects');
-    const saveButton = makeButton('save');
-      // make TODO DIV BODY
-    const todoDiv = document.createElement('div');
-    todoDiv.classList.add('todo');
+  const menuButtonDiv = document.createElement("div");
+  menuButtonDiv.classList.add('menudiv')
+  const menuButton1 = makeButton("menu1");
+  const menuButton2 = makeButton("menu2");
+  const menuButton3 = makeButton("menu3");
+menuButton1.classList.add('hidden');
+menuButton2.classList.add('hidden');
+menuButton3.classList.add('hidden');
 
+  
+  // make TODO DIV BODY
+  const todoDiv = document.createElement("div");
 
+  todoDiv.classList.add("todo");
 
-    // append
-    headerDiv.appendChild(headerText);
-    headerDiv.appendChild(helpButtonDiv);
-    helpButtonDiv.appendChild(helpButton);
-    helpButtonDiv.appendChild(projectsButton);
-    helpButtonDiv.appendChild(saveButton);
-    contentDiv.appendChild(headerDiv);
-    contentDiv.appendChild(todoDiv);
+  // append
+  headerDiv.appendChild(headerText);
+  headerDiv.appendChild(helpButtonDiv);
+  helpButtonDiv.appendChild(helpButton);
+  helpButtonDiv.appendChild(projectsButton);
+  helpButtonDiv.appendChild(saveButton);
 
+  contentDiv.appendChild(headerDiv);
+  contentDiv.appendChild(todoDiv);
+  helpButtonDiv.appendChild(menuButtonDiv);
+  menuButtonDiv.appendChild(menuButton);
+menuButtonDiv.appendChild(menuButton1);
+menuButtonDiv.appendChild(menuButton2);
+menuButtonDiv.appendChild(menuButton3);
 
   return contentDiv;
 }
 
-
-function getCurrentDate(){
+function getCurrentDate() {
   const today = new Date();
-  const date = format((today),'yyyy-MM-dd');
+  const date = format(today, "yyyy-MM-dd");
   return date;
 }
 
 // CREATES FORM
-function addInputForm(){
+function addInputForm() {
+  const todoDiv = document.querySelector(".todo");
 
-  const todoDiv = document.querySelector('.todo');
+  // create INPUT for getting text
 
-// create INPUT for getting text
+  const form = document.createElement("form");
+  form.classList.add("todoform");
 
-  const form = document.createElement('form');
-  form.classList.add('todoform');
- 
-  const fieldset = document.createElement('fieldset');
-  const inputTitleHTML = document.createElement('input');
+  const fieldset = document.createElement("fieldset");
+  const inputTitleHTML = document.createElement("input");
 
-  inputTitleHTML.classList.add('title');
+  inputTitleHTML.classList.add("title");
   inputTitleHTML.type = "text";
   inputTitleHTML.placeholder = "Type TITLE for your todo reminder";
   inputTitleHTML.maxLength = "25";
   // const span = document.createElement('span');
   // span.classList.add('spanerror')
 
-
-  const inputDescriptionHTML = document.createElement('textarea');
-  inputDescriptionHTML.classList.add('description');
+  const inputDescriptionHTML = document.createElement("textarea");
+  inputDescriptionHTML.classList.add("description");
   // inputDescriptionHTML.type = "text";
 
   inputDescriptionHTML.placeholder = "Type DESCRIPTION your todo reminder";
 
-
-  const dateInput = document.createElement('input');
+  const dateInput = document.createElement("input");
   dateInput.type = "date";
   dateInput.value = getCurrentDate();
-  dateInput.classList.add('date');
+  dateInput.classList.add("date");
 
-  const prioritySelect = document.createElement('select');
-  const priorityLabel = document.createElement('label');
+  const prioritySelect = document.createElement("select");
+  const priorityLabel = document.createElement("label");
   priorityLabel.htmlFor = "priority";
-  priorityLabel.textContent = "Priority:"
-  prioritySelect.id ="priority";
+  priorityLabel.textContent = "Priority:";
+  prioritySelect.id = "priority";
   prioritySelect.name = "priority";
   prioritySelect.default = "LOW";
-  dateInput.classList.add('priority');
-    const lowOption = document.createElement('option');
-    lowOption.textContent ="LOW";
-    lowOption.value = "LOW";
-    lowOption.for ="priority";
-    const medOption = document.createElement('option');
-    medOption.textContent ="MED";
-    medOption.value = "MED";
-    const highOption = document.createElement('option');
-    highOption.textContent ="HIGH";
-    highOption.value ="HIGH";
-    priorityLabel.appendChild(prioritySelect);
-    prioritySelect.appendChild(lowOption);
-    prioritySelect.appendChild(medOption);
-    prioritySelect.appendChild(highOption);
+  dateInput.classList.add("priority");
+  const lowOption = document.createElement("option");
+  lowOption.textContent = "LOW";
+  lowOption.value = "LOW";
+  lowOption.for = "priority";
+  const medOption = document.createElement("option");
+  medOption.textContent = "MED";
+  medOption.value = "MED";
+  const highOption = document.createElement("option");
+  highOption.textContent = "HIGH";
+  highOption.value = "HIGH";
+  priorityLabel.appendChild(prioritySelect);
+  prioritySelect.appendChild(lowOption);
+  prioritySelect.appendChild(medOption);
+  prioritySelect.appendChild(highOption);
 
-  const submit = document.createElement('input');
-submit.value = "SET TODO";
+  const submit = document.createElement("input");
+  submit.value = "SET TODO";
   submit.type = "submit";
-  submit.classList.add('submittodo')
-
+  submit.classList.add("submittodo");
 
   todoDiv.appendChild(form);
   form.appendChild(fieldset);
@@ -123,36 +131,39 @@ submit.value = "SET TODO";
   return todoDiv;
 }
 
-
-
-
-function addNewTodo(titleText,descriptionText,dueDate,priorityText,counter){
+function addNewTodo(
+  titleText,
+  descriptionText,
+  dueDate,
+  priorityText,
+  counter
+) {
   //create div with new todo text inside button.
 
-  const newTodoDeleteButton = makeButton('delete');
+  const newTodoDeleteButton = makeButton("delete");
 
-  const newTodoEditButton = makeButton('edit');
+  const newTodoEditButton = makeButton("edit");
 
-  const newTodoDiv = document.createElement('div');
-  newTodoDiv.classList.add('todoedit');
+  const newTodoDiv = document.createElement("div");
+  newTodoDiv.classList.add("todoedit");
 
   newTodoDiv.classList.add(`${priorityText}`);
-  newTodoDiv.setAttribute('id',`${counter}`);
+  newTodoDiv.setAttribute("id", `${counter}`);
 
-  const newTodoTitleDiv = document.createElement('div');
-  newTodoTitleDiv.classList.add('todotitle');
+  const newTodoTitleDiv = document.createElement("div");
+  newTodoTitleDiv.classList.add("todotitle");
 
-  const newTodoDescriptionDiv = document.createElement('div');
-  newTodoDescriptionDiv.classList.add('tododescription');
-  newTodoDescriptionDiv.classList.add('hidden');
+  const newTodoDescriptionDiv = document.createElement("div");
+  newTodoDescriptionDiv.classList.add("tododescription");
+  newTodoDescriptionDiv.classList.add("hidden");
 
-  const newTodoDueDateDiv = document.createElement('input');
-  newTodoDueDateDiv.type = 'date';
+  const newTodoDueDateDiv = document.createElement("input");
+  newTodoDueDateDiv.type = "date";
   newTodoDueDateDiv.value = dueDate;
-  newTodoDueDateDiv.classList.add('tododuedate');
-  
+  newTodoDueDateDiv.classList.add("tododuedate");
+
   newTodoTitleDiv.textContent = titleText;
-  newTodoDescriptionDiv.textContent =descriptionText;
+  newTodoDescriptionDiv.textContent = descriptionText;
   // newTodoDueDateDiv.textContent = dueDate;
 
   newTodoDiv.appendChild(newTodoTitleDiv);
@@ -160,198 +171,212 @@ function addNewTodo(titleText,descriptionText,dueDate,priorityText,counter){
   newTodoDiv.appendChild(newTodoDueDateDiv);
   newTodoDiv.appendChild(newTodoEditButton);
   newTodoDiv.appendChild(newTodoDeleteButton);
- 
 
-  return {newTodoDiv,newTodoDeleteButton,newTodoEditButton};
+  return { newTodoDiv, newTodoDeleteButton, newTodoEditButton };
 }
-function addNewProject(projectTitle){
-  const newTodoDeleteButton = makeButton('deleteproject');
+function addNewProject(projectTitle) {
+  const newTodoDeleteButton = makeButton("deleteproject");
 
-  const newTodoEditButton = makeButton('editproject');
+  const newTodoEditButton = makeButton("editproject");
 
-  const newTodoDiv = document.createElement('div');
-  newTodoDiv.classList.add('todoedit');
+  const newTodoDiv = document.createElement("div");
+  newTodoDiv.classList.add("todoedit");
 
-  const newTodoTitleDiv = document.createElement('div');
-  newTodoTitleDiv.classList.add('todoproject');
+  const newTodoTitleDiv = document.createElement("div");
+  newTodoTitleDiv.classList.add("todoproject");
 
-  
-  newTodoTitleDiv.textContent = "PROJECT: " + projectTitle ;
+  newTodoTitleDiv.textContent = "PROJECT: " + projectTitle;
 
   // newTodoDueDateDiv.textContent = dueDate;
 
   newTodoDiv.appendChild(newTodoTitleDiv);
   newTodoDiv.appendChild(newTodoEditButton);
   newTodoDiv.appendChild(newTodoDeleteButton);
- 
 
-  return {newTodoDiv,newTodoDeleteButton,newTodoEditButton};
+  return { newTodoDiv, newTodoDeleteButton, newTodoEditButton };
 }
-function updateTodo(){
- 
-}
+function updateTodo() {}
 
-
-
-function removeFromHTML(query){
+function removeFromHTML(query) {
   const removeAllTodoDivs = document.querySelectorAll(query);
-  removeAllTodoDivs.forEach(element => {
-      element.remove();
+  removeAllTodoDivs.forEach((element) => {
+    element.remove();
   });
 }
 
-function repopulateHTMLFromArray(todoItems,counter){
-
- if(todoItems.constructor.name === 'Object'){
-  todoItems = todoItems.getProject();
-  todoItems.forEach(element => {
-    createNewTodoItemHTML(element.getTitle(),element.getDescription(),element.getDueDate(),element.getPriority(),counter);
+function repopulateHTMLFromArray(todoItems, counter) {
+  if (todoItems.constructor.name === "Object") {
+    todoItems = todoItems.getProject();
+    todoItems.forEach((element) => {
+      createNewTodoItemHTML(
+        element.getTitle(),
+        element.getDescription(),
+        element.getDueDate(),
+        element.getPriority(),
+        counter
+      );
       counter++;
-  });
-  return counter;
- }
- else if(todoItems.constructor.name === 'Array'){
-  todoItems.forEach(element => {
-    createNewProjectHTML(element.getProjectName());
-    counter++
-  });
-  return counter;
- }
-  
+    });
+    return counter;
+  } else if (todoItems.constructor.name === "Array") {
+    todoItems.forEach((element) => {
+      createNewProjectHTML(element.getProjectName());
+      counter++;
+    });
+    return counter;
+  }
 }
-function addCurrentHTMLFromArray(todoProjectArray,currentNum){
-  
+function addCurrentHTMLFromArray(todoProjectArray, currentNum) {
   return createNewProjectHTML(todoProjectArray[currentNum].getProjectName());
-
 }
 
-function createNewProjectHTML(todoProject){
-  const projectDiv = document.querySelector('.todo'); 
-  
+function createNewProjectHTML(todoProject) {
+  const projectDiv = document.querySelector(".todo");
+
   const holderProject = addNewProject(todoProject);
 
   projectDiv.appendChild(holderProject.newTodoDiv);
 
-   return holderProject;
-
+  return holderProject;
 }
 
-function createNewTodoItemHTML(titleText,descriptionText,dateText,priorityText,counter){
-  const todoDiv = document.querySelector('.todo'); 
-  var holderTodo = addNewTodo(titleText,descriptionText,dateText,priorityText,counter);
+function createNewTodoItemHTML(
+  titleText,
+  descriptionText,
+  dateText,
+  priorityText,
+  counter
+) {
+  const todoDiv = document.querySelector(".todo");
+  var holderTodo = addNewTodo(
+    titleText,
+    descriptionText,
+    dateText,
+    priorityText,
+    counter
+  );
 
-       todoDiv.appendChild(holderTodo.newTodoDiv);
-   return holderTodo;
-
+  todoDiv.appendChild(holderTodo.newTodoDiv);
+  return holderTodo;
 }
 
-function makeButton(text){
-  const button = document.createElement('button');
-  
-  button.classList.add(`${text}` + `button`);
+function makeButton(text) {
+  const button = document.createElement("button");
+
+  button.classList.add(`${text}button`);
   text = text.toUpperCase();
-  if(text == "DELETE") {
-    
-    text = '✔';
+  if (text === "DELETE") {
+    text = "✔";
   }
-  if(text == "DELETEPROJECT"){
-    text = '❌';
+  if (text === "DELETEPROJECT") {
+    text = "❌";
   }
 
-  
   button.textContent = text;
-return button;
+  return button;
 }
 
-function getFormData(inputTitleData,inputDescriptionData,dateInputData,priorityData){
-  
+function getFormData(
+  inputTitleData,
+  inputDescriptionData,
+  dateInputData,
+  priorityData
+) {
   const titleText = inputTitleData.value;
   const descriptionText = inputDescriptionData.value;
   const dateText = dateInputData.value;
   const priorityText = priorityData.value.toLowerCase();
-  return {titleText,descriptionText,dateText,priorityText}
+  return { titleText, descriptionText, dateText, priorityText };
 }
-function getFormProjectData(projectName){
-  
+function getFormProjectData(projectName) {
   const titleText = projectName.value;
 
   return titleText;
 }
 
-function resetFormData(inputTitleData,inputDescriptionData,dateInputData,priorityData,submitButton){
-
+function resetFormData(
+  inputTitleData,
+  inputDescriptionData,
+  dateInputData,
+  priorityData,
+  submitButton
+) {
   inputTitleData.value = "";
   inputDescriptionData.value = "";
   dateInputData.value = getCurrentDate();
   priorityData.value = "LOW";
   submitButton.value = "SET TODO";
-
 }
 
 // export
 
-function findArrayNum(element){
+function findArrayNum(element) {
   const toRemoveDiv = element.parentElement;
 
- const removeNum = toRemoveDiv.id;
-   
-    return removeNum;
+  const removeNum = toRemoveDiv.id;
+
+  return removeNum;
 }
 
-function makeHelpCard(){
-  
-  const newDiv = document.createElement('div');
-  newDiv.classList.add('helpdiv');
+function makeHelpCard() {
+  const newDiv = document.createElement("div");
+  newDiv.classList.add("helpdiv");
 
-  const helpText = document.createElement('p');
-  helpText.classList.add('helptext');
+  const helpText = document.createElement("p");
+  helpText.classList.add("helptext");
 
-
-  helpText.textContent = "✔: requires a doubleclick!\n Project requires doubleclick \n Title: is Required! " + 
-  "\n Click Card to EDIT or VIEW  \n Version: 1.1.5";
-  newDiv.appendChild(helpText)
-
+  helpText.textContent =
+    "✔: requires a doubleclick!\n Project requires doubleclick \n Title: is Required! " +
+    "\n Click Card to EDIT or VIEW  \n Version: 1.1.5";
+  newDiv.appendChild(helpText);
 
   return newDiv;
-
 }
 let helpToggle = true;
-function toggleHelp(){
-
-  const helpButton = document.querySelector('.helpbutton');
-const helpCard = document.querySelector('.helpdiv');
+function toggleHelp() {
+  const helpButton = document.querySelector(".helpbutton");
+  const helpCard = document.querySelector(".helpdiv");
   helpCard.style.visibility = "hidden";
-  helpButton.addEventListener('click', () => {
-      if(helpToggle){
-          helpCard.style.visibility = "visible";
-          helpButton.style.height = "100vh";
-          helpButton.style.width = "100vw";
-          helpButton.style.opacity = "0.1";
-          makeDark(helpToggle);
-          helpToggle = false;
-      }
-      else{
-          helpCard.style.visibility = "hidden";
-          helpButton.style.height = "25px";
-          helpButton.style.width = "80px";
-          helpButton.style.opacity = "1";
-          makeDark(helpToggle);
-          helpToggle = true;
-      }
-});
+  helpButton.addEventListener("click", () => {
+    if (helpToggle) {
+      helpCard.style.visibility = "visible";
+      helpButton.style.height = "100vh";
+      helpButton.style.width = "100vw";
+      helpButton.style.opacity = "0.1";
+      makeDark(helpToggle);
+      helpToggle = false;
+    } else {
+      helpCard.style.visibility = "hidden";
+      helpButton.style.height = "25px";
+      helpButton.style.width = "fit-content";
+      helpButton.style.opacity = "1";
+      makeDark(helpToggle);
+      helpToggle = true;
+    }
+  });
 }
 
-function removeAllTodoHTML(){
-      
-  const query = '.todoedit';
+function removeAllTodoHTML() {
+  const query = ".todoedit";
   removeFromHTML(query);
 }
 
-export {createHTMLInitial,addInputForm, addNewTodo,updateTodo,getCurrentDate,
-  createNewTodoItemHTML,makeHelpCard,toggleHelp,removeAllTodoHTML,getFormProjectData,
-  findArrayNum,removeFromHTML,repopulateHTMLFromArray,getFormData,resetFormData
-  ,addCurrentHTMLFromArray,createNewProjectHTML
+export {
+  createHTMLInitial,
+  addInputForm,
+  addNewTodo,
+  updateTodo,
+  getCurrentDate,
+  createNewTodoItemHTML,
+  makeHelpCard,
+  toggleHelp,
+  removeAllTodoHTML,
+  getFormProjectData,
+  findArrayNum,
+  removeFromHTML,
+  repopulateHTMLFromArray,
+  getFormData,
+  resetFormData,
+  addCurrentHTMLFromArray,
+  createNewProjectHTML,
 };
-
-
-
