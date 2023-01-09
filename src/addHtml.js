@@ -24,9 +24,9 @@ function createHTMLInitial() {
 
   const menuButtonDiv = document.createElement("div");
   menuButtonDiv.classList.add('menudiv')
-  const menuButton1 = makeButton("menu1");
-  const menuButton2 = makeButton("menu2");
-  const menuButton3 = makeButton("menu3");
+  const menuButton1 = makeButton("menus");
+  const menuButton2 = makeButton("menus");
+  const menuButton3 = makeButton("menus");
 menuButton1.classList.add('hidden');
 menuButton2.classList.add('hidden');
 menuButton3.classList.add('hidden');
@@ -46,11 +46,12 @@ menuButton3.classList.add('hidden');
 
   contentDiv.appendChild(headerDiv);
   contentDiv.appendChild(todoDiv);
-  helpButtonDiv.appendChild(menuButtonDiv);
-  menuButtonDiv.appendChild(menuButton);
-menuButtonDiv.appendChild(menuButton1);
-menuButtonDiv.appendChild(menuButton2);
-menuButtonDiv.appendChild(menuButton3);
+  // helpButtonDiv.appendChild(menuButtonDiv);
+  helpButtonDiv.appendChild(menuButton);
+  menuButton.appendChild(menuButtonDiv);
+  menuButtonDiv.appendChild(menuButton1);
+  menuButtonDiv.appendChild(menuButton2);
+  menuButtonDiv.appendChild(menuButton3);
 
   return contentDiv;
 }

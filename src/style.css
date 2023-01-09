@@ -88,36 +88,63 @@ body {
 }
     /* buttons */
 
-.headerbuttondiv {
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  flex-direction: row;
-  display: flex;
-}
+    .headerbuttondiv{
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      grid-auto-flow: column;
+      display: grid;
+      height: 30px;
+      background-color: white;
+    }
+    .menubutton{
+     padding-top: 6px;
+      height: 30px;
+      display: grid;
+      row-gap: 7px;
+      justify-content: center;
+     
+    }
+    .menudiv{
+      display: grid;
+      height: 80px;
+      background-color: white;
+      background: rgba(255, 255, 255, 0);
+     
+    }
+    .menusbutton{
+      background: rgba(255, 255, 255, 0);
+    }
 .todo > form > fieldset > input,
 textarea.description,
-.headerbuttondiv > button{
-  padding: 3px;
-  margin: 5px;
-  border: 2px solid #ccc;
-  border-radius: 8px;
-  background-color: #f8f8f8;
-  
-}
-.menudiv > button{
+.headerbuttondiv > button ,.menubutton{
 
-  margin: 5px;
   border: 2px solid #ccc;
   border-radius: 8px;
-  background-color: #f8f8f8;
+  background-color: rgba(255, 255, 255, 0);
+
 }
-.menudiv{
-  display: flex;
-  flex-direction: column;
-  padding: 0px;
-  margin: 0px;
+
+.menudiv > button{
+vertical-align: center;
+  border: none;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0);
+
 }
+
+
+,.menubutton{
+
+
+}
+
+.menusbutton {
+  position: relative;
+  border: none;
+
+}
+
 /* INPUT FORM */
 .todo > form > fieldset,
 .todoedit,
@@ -206,10 +233,6 @@ input[type="date"] {
   margin-top: 10px;
 }
 
-button {
-  margin-right: 5px;
-  height: 25px;
-}
 .deletebutton,
 .editbutton,
 .editprojectbutton,

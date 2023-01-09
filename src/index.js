@@ -54,6 +54,8 @@ let projectView = true;
 const projectsButton = document.querySelector(".projectsbutton");
 const saveButton = document.querySelector(".savebutton");
 const menuButton = document.querySelector(".menubutton");
+
+const menusButton = document.querySelector(".menusbutton");
 allProjects.push(todoItems);
 // let projectLength = allProjects.length;
 
@@ -71,7 +73,7 @@ console.log(test);
 projectsButton.addEventListener("click", makeNewProject());
 saveButton.addEventListener("click", saveAllProjects);
 menuButton.addEventListener('click', menuButtonChange);
-    
+
     
 
 
@@ -79,12 +81,13 @@ menuButton.addEventListener('click', menuButtonChange);
 getAllProjectStorage();
 
 function menuButtonChange(){
-    const menuButton1 = document.querySelector(".menu1button");
-    const menuButton2 = document.querySelector(".menu2button");
-    const menuButton3 = document.querySelector(".menu3button");
-    menuButton1.classList.toggle('hidden');
-    menuButton2.classList.toggle('hidden');
-    menuButton3.classList.toggle('hidden');
+    const query = '.menusbutton';
+    const menuButton1 = document.querySelectorAll(query);
+  menuButton1.forEach( element => {
+    element.classList.toggle('hidden');
+  }
+  );
+
 }
 function makeNewProject() {
   return function () {
