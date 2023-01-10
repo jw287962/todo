@@ -268,7 +268,7 @@ function importAll(r) {
 const images = importAll(require.context('./asset/images', false, /\.(png|jpe?g|svg)$/));
 const totalNumImages = images.length;
 let currentImage = 0;
-
+let timerControl;
 function addImageSlider(){
   const imageHolder = document.querySelector('.image');
   imageHolder.src = images[0];
@@ -281,12 +281,14 @@ function addImageSlider(){
 
     imageIndicator.appendChild(dot);
   }
+  timerControl = setInterval(goNextImage, 3500);
   const nextImage = document.querySelector('.nextimage');
   const previousImage = document.querySelector('.previousimage');
   nextImage.addEventListener('click',goNextImage);
   previousImage.addEventListener('click',goPreviousImage);
-}
 
+
+}
 function goNextImage(){
   const imageHolder = document.querySelector('.image');
   currentImage++
@@ -321,6 +323,8 @@ function goNextImage(){
     imageHolder.src = images[currentImage];
   }
 
+  clearInterval(timerControl);
+  timerControl = setInterval(goNextImage, 3500);
 }
 function goPreviousImage(){
   const imageHolder = document.querySelector('.image');
@@ -346,10 +350,6 @@ function goPreviousImage(){
       imageIndicator.lastChild.classList.toggle('active');
       return;
     }
-    
-    
-        
-
     num += 1;
   });
   if(currentImage >= 0){
