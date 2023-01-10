@@ -370,7 +370,8 @@ input[type="date"] {
 }
 .slider>.image{
   object-fit: cover;
-  width: 480px;
+  width: 400px;
+  height: 200px;
   padding: 10px;
 }
 .previousimage{

@@ -90,7 +90,7 @@ function menuButtonChange(){
     const query = '.menusbutton';
     const menuButton = [].slice.call(document.querySelector(query).children);
     menusButton.classList.toggle('clicked');
-    console.log(menuButton.children);
+    
   menuButton.forEach( element => {
    
     // element.classList.toggle('hidden');
