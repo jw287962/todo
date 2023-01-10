@@ -53,12 +53,11 @@ let editNumber;
 let counter = 0;
 form.addEventListener("submit", doTodoFormSubmission);
 // const todoDiv = document.querySelector('.todo');
-toggleHelp();
+
 
 let projectView = true;
-const projectsButton = document.querySelector(".projectsbutton");
-const saveButton = document.querySelector(".savebutton");
-const menuButton = document.querySelector(".menubutton");
+
+
 
 // const menusButton = document.querySelector(".menusbutton");
 allProjects.push(todoItems);
@@ -70,28 +69,36 @@ let projectNum = 0;
 // const test = {
 //   home: ["as"],
 // };
-addMenuDropDown(menuButton);
+
+const menusButton = document.querySelector(".menusbutton");
+
+addMenuDropDown(menusButton);
+
+
 // test.work = ["hi"];
 
 // console.log(test);
+const projectsButton = document.querySelector(".projectsbutton");
+const saveButton = document.querySelector(".savebutton");
 
 projectsButton.addEventListener("click", makeNewProject());
 saveButton.addEventListener("click", saveAllProjects);
-menuButton.addEventListener('click', menuButtonChange);
+menusButton.addEventListener('click', menuButtonChange);
 
-
+toggleHelp();
 
 
 getAllProjectStorage();
+resetFormData();
 
 function menuButtonChange(){
     const query = '.menusbutton';
-    const menuButton1 = document.querySelectorAll(query);
-  menuButton1.forEach( element => {
+    const menuButton = [].slice.call(document.querySelector(query).children);
+    console.log(menuButton.children);
+  menuButton.forEach( element => {
     element.classList.toggle('hidden');
   }
   );
-
 }
 function makeNewProject() {
   return function () {
@@ -194,10 +201,10 @@ function checkProjectView(boolean) {
     resetFormListeners();
 
     form.addEventListener("submit", doTodoFormSubmission);
-
+    
     repopulateCurrentProject(projectNum);
     counter = repopulateHTMLFromArray(allProjects[projectNum], 0);
-
+    resetFormData();
     const todoEditButton = document.querySelectorAll(".editbutton");
     let count = 0;
     todoEditButton.forEach((element) => {
@@ -281,13 +288,7 @@ function doTodoFormSubmission(event) {
     counter++;
     todoCheckButtonListener(holderTodo.newTodoDeleteButton);
     editButtonListener(holderTodo.newTodoEditButton);
-    resetFormData(
-      inputTitleData,
-      inputDescriptionData,
-      dateInputData,
-      priorityData,
-      submitButton
-    );
+    resetFormData();
 
     console.log("do submission on todo Item  ProjectNum:" + projectNum);
 
@@ -478,6 +479,7 @@ function getAllProjectStorage() {
   }
   addCurrentProjectCard();
   repopulateHTMLFromArray(allProjects[0], 0);
+
 }
 
 function addFromStorage() {}

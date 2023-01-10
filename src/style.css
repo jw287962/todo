@@ -4,6 +4,7 @@
   --grey: rgb(240, 238, 241);
   --toRight: 240px;
 }
+
 @font-face {
     font-family: Indie-Flower;
     src: url('./asset/IndieFlower-Regular.ttf');
@@ -55,7 +56,7 @@ body {
   flex-direction: column;
   align-items: center;
 
-  width: 100%;
+  width: 100vw;
   margin-bottom: 15px;
   background-color: rgb(255, 255, 255);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
@@ -97,11 +98,9 @@ body {
       height: 30px;
       background-color: white;
     }
-    .menubutton{
+    .menusbutton{
      padding-top: 6px;
-      height: 30px;
       display: grid;
-   
       row-gap: 7px;
       justify-content: center;
      
@@ -116,6 +115,11 @@ body {
     .menusbutton{
       background: rgba(255, 255, 255, 0);
     }
+.menusbutton>button{
+ border: none;
+ background-color: white;
+ pad: 10px;
+}
 .todo > form > fieldset > input,
 textarea.description,
 .headerbuttondiv > button ,.menubutton{
@@ -147,8 +151,7 @@ vertical-align: center;
 }
 
 /* INPUT FORM */
-.todo > form > fieldset,
-.todoedit,
+
 .todo > form > fieldset > input {
   min-width: var(--width);
 }
@@ -318,11 +321,41 @@ input[type="date"] {
 .hidden {
   display: none;
 }
+
+
 @media only screen and (max-width: 600px) {
-  body {
-    max-width: 100vw;
+  :root{
+    --width: 80vw;
+    --toRight: 50%;
   }
+  html,body{
+    overflow-x: hidden;
+}
+  body, .todo, #content{
+    width: fit-content;
+  }
+  
   .todoedit {
     max-width: 90vw;
   }
+  .headerbuttondiv{
+    grid-auto-flow: row;
+    position: absolute;
+    height: fit-content;
+    z-index: 1;
+
+  }
+  .menubutton{
+    height: fit-content;
+  }
+  .headerbuttondiv>button{
+     max-width: 100px;
+  }
+  .editbutton {
+    padding: 30px 100px;
+  }
+  .editprojectbutton {
+    padding: 37px 175px;
+  }
+
 }

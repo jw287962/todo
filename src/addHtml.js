@@ -8,18 +8,38 @@ function getCurrentDate() {
   const date = format(today, "yyyy-MM-dd");
   return date;
 } 
+function makeButton(text) {
+  const button = document.createElement("button");
+
+  button.classList.add(`${text}button`);
+  text = text.toUpperCase();
+  if (text === "DELETE") {
+    text = "✔";
+  }
+  if (text === "DELETEPROJECT") {
+    text = "❌";
+  }
+
+  button.textContent = text;
+  return button;
+}
 
 function addMenuDropDown(element){
 const parent = element;
-  const button1 = makeButton("menus");
-  const button2 = makeButton("menus");
+// const newDiv= document.createElement('div');
 
 
-  parent.appendChild(button1);
+  const button2 = makeButton("projects");
+  const button3 = makeButton("save");
+
+
+  // parent.appendChild(newDiv);
   parent.appendChild(button2);
+  parent.appendChild(button3);
 
-  button1.classList.toggle('hidden');
+
   button2.classList.toggle('hidden');
+  button3.classList.toggle('hidden');
 }
 
 function addNewTodo(
@@ -152,21 +172,6 @@ function createNewTodoItemHTML(
   return holderTodo;
 }
 
-function makeButton(text) {
-  const button = document.createElement("button");
-
-  button.classList.add(`${text}button`);
-  text = text.toUpperCase();
-  if (text === "DELETE") {
-    text = "✔";
-  }
-  if (text === "DELETEPROJECT") {
-    text = "❌";
-  }
-
-  button.textContent = text;
-  return button;
-}
 
 function getFormData(
   inputTitleData,
@@ -186,13 +191,12 @@ function getFormProjectData(projectName) {
   return titleText;
 }
 
-function resetFormData(
-  inputTitleData,
-  inputDescriptionData,
-  dateInputData,
-  priorityData,
-  submitButton
-) {
+function resetFormData() {
+  const inputTitleData = document.querySelector(".title");
+const inputDescriptionData = document.querySelector(".description");
+const dateInputData = document.querySelector(".date");
+const priorityData = document.querySelector("#priority");
+const submitButton = document.querySelector(".submittodo");
   inputTitleData.value = "";
   inputDescriptionData.value = "";
   dateInputData.value = getCurrentDate();
@@ -228,21 +232,25 @@ function makeHelpCard() {
 
 let helpToggle = true;
 function toggleHelp() {
+  const headerButtonDiv = document.querySelector(".headerbuttondiv");
   const helpButton = document.querySelector(".helpbutton");
   const helpCard = document.querySelector(".helpdiv");
   helpCard.style.visibility = "hidden";
   helpButton.addEventListener("click", () => {
     if (helpToggle) {
+      headerButtonDiv.style.opacity = "0";
       helpCard.style.visibility = "visible";
       helpButton.style.height = "100vh";
       helpButton.style.width = "100vw";
       helpButton.style.opacity = "0.1";
+ 
       makeDark(helpToggle);
       helpToggle = false;
     } else {
+      headerButtonDiv.style.opacity = "1";
       helpCard.style.visibility = "hidden";
-      helpButton.style.height = "25px";
-      helpButton.style.width = "fit-content";
+      helpButton.style.height = "";
+      helpButton.style.width = "";
       helpButton.style.opacity = "1";
       makeDark(helpToggle);
       helpToggle = true;
