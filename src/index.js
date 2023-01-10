@@ -16,22 +16,11 @@ import {
   removeAllTodoHTML,
   addCurrentHTMLFromArray,
   createNewProjectHTML,
+  addImageSlider,
 } from './addHtml';
 import { isConfirmed, updateArrayTodoList } from './logic';
 
 makeHelpCard();
-
- // makes #content and add header
-
-// const contentDiv = document.getElementById("content");
-// contentDiv.appendChild(addInputForm()); // add input form under contentDiv
-
-
-
-
-
-
-// need to update after input text is entered and user clicks enter
 
 /** allProjects HOLD AN ARRAY OF
   projects Object called todoProjects --> holds projectName and an Array of TodoItems
@@ -64,7 +53,7 @@ allProjects.push(todoItems);
 let projectLength = allProjects.length;
 
 let projectNum = 0;
-// For default View
+
 
 // const test = {
 //   home: ["as"],
@@ -74,10 +63,6 @@ const menusButton = document.querySelector(".menusbutton");
 
 addMenuDropDown(menusButton);
 
-
-// test.work = ["hi"];
-
-// console.log(test);
 const projectsButton = document.querySelector(".projectsbutton");
 const saveButton = document.querySelector(".savebutton");
 
@@ -91,6 +76,7 @@ toggleHelp();
 getAllProjectStorage();
 resetFormData();
 
+addImageSlider();
 function menuButtonChange(){
     const query = '.menusbutton';
     const menuButton = [].slice.call(document.querySelector(query).children);

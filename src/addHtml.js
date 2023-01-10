@@ -1,7 +1,7 @@
 import { el } from "date-fns/locale";
 import { format } from "../node_modules/date-fns";
 import { makeDark } from "./logic.js";
-
+import url from './asset/images/forget.jpg';
 
 function getCurrentDate() {
   const today = new Date();
@@ -262,9 +262,107 @@ function removeAllTodoHTML() {
   const query = ".todoedit";
   removeFromHTML(query);
 }
+function importAll(r) {
+  return r.keys().map(r);
+}
+const images = importAll(require.context('./asset/images', false, /\.(png|jpe?g|svg)$/));
+const totalNumImages = images.length;
+let currentImage = 0;
 
+function addImageSlider(){
+  const imageHolder = document.querySelector('.image');
+  imageHolder.src = images[0];
+
+  const imageIndicator = document.querySelector('.imageindicator');
+  for(let i = 0; i <totalNumImages;i+=1){
+    const dot = document.createElement('div');
+    dot.classList.add('dot');
+    if(i === 0) dot.classList.toggle('active');
+
+    imageIndicator.appendChild(dot);
+  }
+  const nextImage = document.querySelector('.nextimage');
+  const previousImage = document.querySelector('.previousimage');
+  nextImage.addEventListener('click',goNextImage);
+  previousImage.addEventListener('click',goPreviousImage);
+}
+
+function goNextImage(){
+  const imageHolder = document.querySelector('.image');
+  currentImage++
+  const imageIndicator = document.querySelector('.imageindicator');
+  const allDots = document.querySelectorAll('.dot');
+  let num = 0;
+  allDots.forEach( element => {
+    
+    if(num === currentImage)
+      element.classList.toggle('active');
+    if(num === currentImage-1)
+        element.classList.toggle('active');
+    if(num === currentImage && currentImage === 0) {
+      element.classList.toggle('active');
+    }
+    if(currentImage >= totalNumImages) {
+      currentImage = 0;
+      element.classList.toggle('active');
+      imageIndicator.lastChild.classList.toggle('active');
+    }
+        
+
+    num += 1;
+  });
+
+  if(currentImage !== totalNumImages){
+   
+     imageHolder.src = images[currentImage];
+  }
+  else{
+    currentImage = 0;
+    imageHolder.src = images[currentImage];
+  }
+
+}
+function goPreviousImage(){
+  const imageHolder = document.querySelector('.image');
+  currentImage--
+  const imageIndicator = document.querySelector('.imageindicator');
+  const allDots = document.querySelectorAll('.dot');
+  let num = 0;
+  console.log(currentImage);
+  allDots.forEach( element => {
+    
+    // if(currentImage === 0 && num === 0) {
+    //     element.classList.toggle('active');
+    //   // imageIndicator.firstElementChild.classList.toggle('active');
+      
+    // }
+      if(num === currentImage)
+      element.classList.toggle('active');
+    if(num === currentImage+1)
+        element.classList.toggle('active');
+    
+    if(currentImage < 0 ){
+      currentImage = totalNumImages-1;
+      imageIndicator.lastChild.classList.toggle('active');
+      return;
+    }
+    
+    
+        
+
+    num += 1;
+  });
+  if(currentImage >= 0){
+     imageHolder.src = images[currentImage];
+  }
+else{
+  currentImage = totalNumImages-1;
+  imageHolder.src = images[currentImage];
+} 
+
+}
 export {
-
+addImageSlider,
   // addInputForm,
   addNewTodo,
   updateTodo,

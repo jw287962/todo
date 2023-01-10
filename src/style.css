@@ -3,6 +3,7 @@
   --width: 350px;
   --grey: rgb(240, 238, 241);
   --toRight: 240px;
+  --dot: 20px;
 }
 
 @font-face {
@@ -103,53 +104,36 @@ body {
       display: grid;
       row-gap: 7px;
       justify-content: center;
-     
+
     }
-    .menudiv{
-      display: grid;
-      height: 80px;
-      background-color: white;
-      background: rgba(255, 255, 255, 0);
-      grid-auto-flow: column;
+    .helpbutton{
+      position: absolute;
+      right: 0px;
     }
-    .menusbutton{
+    .menusbutton,.helpbutton{
       background: rgba(255, 255, 255, 0);
+      padding: 10px;
+
     }
 .menusbutton>button{
  border: none;
  background-color: white;
- pad: 10px;
+
 }
 .todo > form > fieldset > input,
 textarea.description,
-.headerbuttondiv > button ,.menubutton{
+.headerbuttondiv > button ,
+.menubutton, .helpbutton{
 
   border: 2px solid #ccc;
   border-radius: 8px;
-  background-color: rgba(255, 255, 255, 0);
+  background-color: rgba(255, 255, 255);
 
 }
-
-.menudiv > button{
-vertical-align: center;
-  border: none;
-  border-radius: 8px;
-  background-color: rgba(255, 255, 255, 0);
-
-}
-
-
-,.menubutton{
-
-
-}
-
 .menusbutton {
   position: relative;
   border: none;
-
 }
-
 /* INPUT FORM */
 
 .todo > form > fieldset > input {
@@ -236,7 +220,7 @@ select {
 input[type="date"] {
   margin-top: 10px;
 }
-
+/* TODO EVENT LISTENER BUTTONS */
 .deletebutton,
 .editbutton,
 .editprojectbutton,
@@ -277,9 +261,9 @@ input[type="date"] {
 .editprojectbutton {
   padding: 37px 175px;
 }
+
 .headerbuttondiv > button:active,
-.deletebutton:active,
-.editbutton:active,
+.todoproject>button,
 .helpbutton:active,
 .todoedit:active {
   border: 2px solid black;
@@ -322,7 +306,53 @@ input[type="date"] {
   display: none;
 }
 
+/* IMAGE SLIDER */
+.imageindicator{
+  display: grid;
+  gap: 5px;
+  grid-auto-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+.dot{
+  height: var(--dot);
+  width:  var(--dot);
+  border: 2px solid grey;
+  border-radius: 50%;
+  background-color: white;
 
+}
+
+.active{
+  background-color: grey;
+}
+.slider{
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+}
+
+.slider>button{
+
+  border: solid rgb(110, 110, 110);
+  border-width: 0 3px 3px 0;
+
+
+  padding: 10px;
+}
+.slider>.image{
+  object-fit: cover;
+  width: 480px;
+  padding: 10px;
+}
+.previousimage{
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+.nextimage{
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
 @media only screen and (max-width: 600px) {
   :root{
     --width: 80vw;
@@ -331,9 +361,7 @@ input[type="date"] {
   html,body{
     overflow-x: hidden;
 }
-  body, .todo, #content{
-    width: fit-content;
-  }
+  
   
   .todoedit {
     max-width: 90vw;

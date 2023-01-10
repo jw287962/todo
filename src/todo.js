@@ -20,8 +20,8 @@ const todoProject = (name) => {
     return _todoProject[number];
   }
 
-  function setProjectName(name) {
-    _projectName = name;
+  function setProjectName(projName) {
+    _projectName = projName;
   }
   function getProjectName() {
     return _projectName;
