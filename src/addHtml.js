@@ -37,9 +37,6 @@ const parent = element;
   parent.appendChild(button2);
   parent.appendChild(button3);
 
-
-  button2.classList.toggle('hidden');
-  button3.classList.toggle('hidden');
 }
 
 function addNewTodo(
@@ -301,16 +298,12 @@ function goNextImage(){
       element.classList.toggle('active');
     if(num === currentImage-1)
         element.classList.toggle('active');
-    if(num === currentImage && currentImage === 0) {
-      element.classList.toggle('active');
-    }
+    
     if(currentImage >= totalNumImages) {
       currentImage = 0;
       element.classList.toggle('active');
       imageIndicator.lastChild.classList.toggle('active');
     }
-        
-
     num += 1;
   });
 
@@ -334,12 +327,7 @@ function goPreviousImage(){
   let num = 0;
   console.log(currentImage);
   allDots.forEach( element => {
-    
-    // if(currentImage === 0 && num === 0) {
-    //     element.classList.toggle('active');
-    //   // imageIndicator.firstElementChild.classList.toggle('active');
-      
-    // }
+  
       if(num === currentImage)
       element.classList.toggle('active');
     if(num === currentImage+1)

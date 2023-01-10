@@ -1,5 +1,5 @@
 import { todoProject } from './todo';
-
+import addImageSlider from './imageSlider'
 import './style.css';
 import {
   getCurrentDate,
@@ -11,12 +11,10 @@ import {
   createNewTodoItemHTML,
   makeHelpCard,
   addMenuDropDown,
-//   addInputForm,
   toggleHelp,
   removeAllTodoHTML,
   addCurrentHTMLFromArray,
   createNewProjectHTML,
-  addImageSlider,
 } from './addHtml';
 import { isConfirmed, updateArrayTodoList } from './logic';
 
@@ -48,7 +46,7 @@ let projectView = true;
 
 
 
-// const menusButton = document.querySelector(".menusbutton");
+
 allProjects.push(todoItems);
 let projectLength = allProjects.length;
 
@@ -77,12 +75,26 @@ getAllProjectStorage();
 resetFormData();
 
 addImageSlider();
+
+refreshProjectProperLoad();
+
+function refreshProjectProperLoad(){
+  let editProjectButton = document.querySelector('.todoedit');
+  const doubleClickEvent  = new Event('dblclick');
+  editProjectButton.dispatchEvent(doubleClickEvent);
+  editProjectButton = document.querySelector('.editprojectbutton');
+  editProjectButton.dispatchEvent(doubleClickEvent);
+}
+
 function menuButtonChange(){
     const query = '.menusbutton';
     const menuButton = [].slice.call(document.querySelector(query).children);
+    menusButton.classList.toggle('clicked');
     console.log(menuButton.children);
   menuButton.forEach( element => {
-    element.classList.toggle('hidden');
+   
+    // element.classList.toggle('hidden');
+    element.classList.toggle('clicked');
   }
   );
 }
@@ -158,7 +170,6 @@ function addListenerProjectDelete() {
 }
 function checkProjectView(boolean) {
   removeAllTodoHTML();
-
   if (boolean) {
     console.log("make hidden" + projectView);
 

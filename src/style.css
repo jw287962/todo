@@ -4,6 +4,8 @@
   --grey: rgb(240, 238, 241);
   --toRight: 240px;
   --dot: 20px;
+
+  --buttongrey: #ccc;
 }
 
 @font-face {
@@ -98,14 +100,41 @@ body {
       display: grid;
       height: 30px;
       background-color: white;
+ 
     }
+
     .menusbutton{
+      width: fit-content;
      padding-top: 6px;
       display: grid;
       row-gap: 7px;
       justify-content: center;
+      border: 2px solid grey;
 
+    height: 40px;
+    transition: border 500ms ease-in-out 100ms;
+    transition: height 500ms ease-in-out 100ms;
     }
+  .menusbutton.clicked{  
+    border: 2px solid var(--buttongrey);
+    height: 100px;
+    
+    }
+   .hidden{
+    display: none;
+   }
+ .projectsbutton,.savebutton{
+  border: 2px solid white;
+  opacity: 0;
+
+  transition: border 300ms ease-in-out 100ms, opacity 300ms ease-in-out 100ms;
+ } 
+ .projectsbutton.clicked,.savebutton.clicked{
+  border-top: 1px solid black;
+  
+    opacity: 1;
+   display: inline-block;
+}
     .helpbutton{
       position: absolute;
       right: 0px;
@@ -115,6 +144,13 @@ body {
       padding: 10px;
 
     }
+    .headerbuttondiv > button:active,
+.todoproject>button,
+.helpbutton:active,
+.todoedit:active{
+
+  top: 2px;
+}
 .menusbutton>button{
  border: none;
  background-color: white;
@@ -262,13 +298,7 @@ input[type="date"] {
   padding: 37px 175px;
 }
 
-.headerbuttondiv > button:active,
-.todoproject>button,
-.helpbutton:active,
-.todoedit:active {
-  border: 2px solid black;
-  top: 2px;
-}
+
 /*  */
 /* .low{ */
 /* background-color: rgb(235, 235, 235); */
@@ -302,9 +332,7 @@ input[type="date"] {
   font-size: 15px;
 }
 
-.hidden {
-  display: none;
-}
+
 
 /* IMAGE SLIDER */
 .imageindicator{
