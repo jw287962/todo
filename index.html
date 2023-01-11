@@ -7,11 +7,12 @@
  
 <script defer src="main.js"></script></head>
   <body>
-    <button class="helpbutton">HELP</button>
     <div id="content">
-
+      <div>
+        <button class="helpbutton">HELP</button>
+      </div>
       <div class="headerbuttondiv">
-        
+        <button class="loginbutton">LOGIN</button>
         <button class="menusbutton">MENU
           <!-- 
           <button class="projectsbutton">PROJECTS</button>
@@ -55,6 +56,56 @@
          
     
   </div>
-      
+
+
+    <div class="login" >
+        <form class="loginform" novalidate>
+            <fieldset> Account
+                <label for="name">Name: <span class="err">*</span>
+                  <input 
+                  class="name"
+                   type="text" 
+                  placeholder="JASON WONG" 
+                  required>
+                  <span class="error"></span>
+                </label>
+
+                <label for="email">Email: <span class="err">*</span>
+                  <input 
+                   type="email" 
+                   class="email"
+                  placeholder="123@gmail.com"
+                  required >
+                  <span class="error"></span>
+                </label>
+
+                <label for="country">Country:
+                  <input 
+                  class="country"
+                   type="text" 
+                 >
+                </label>
+                <label for="pwd">Password: <span class="err">*</span>
+                  <input 
+                  class="pwd"
+                   type="password" 
+                   required>
+                   <span class="error"></span>
+                </label>
+               
+              </label>
+              <label for="pwdconfirm">Confirm Password: <span class="err">*</span>
+                <input 
+                class="pwdconfirm"
+                 type="password"
+                 required>
+                 <span class="error"></span>
+              </label>
+
+              <input type="submit" value="Submit">
+            </fieldset>
+
+        </form>
+    </div>
   </body>
 </html>
