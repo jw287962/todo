@@ -44,7 +44,7 @@
               </fieldset>
             </form>
       </div>
- 
+ <div class="line"></div>
       <div class="slider">
         <button class="previousimage"></button>
         <img class="image">
@@ -53,10 +53,29 @@
         <div class="imageindicator">
     
         </div>
-         
-    
-  </div>
 
+        <form class="gif">
+          <div>
+            <label for="gifsearch">GIF:</label>
+            <input type="search" id="gifsearch" name="gifsearch">
+          </div>
+         
+        </form>
+        
+         
+    <img src="#" alt="gifs" class="imageapi" height="300px">
+    <script>
+      const img = document.querySelector('.imageapi');
+
+      fetch('https://api.giphy.com/v1/gifs/translate?api_key=mTBAlByNPEccPyam6w9yLObH320xot5y&s=dogs',{mode: 'cors'})
+        .then(function(response){
+      response.json().then( (response) => {
+        img.src = response.data.images.original.url;
+        console.log(response.data.images.original.url);
+      });
+        });
+    </script>
+  </div>
 
     <div class="login" >
         <form class="loginform" novalidate>
