@@ -19,7 +19,7 @@ function changeGif(event){
         searchHolder = 'dog'; //default search;
     }
     console.log(searchHolder);
-    const newRequest = new Request(`https://api.giphy.com/v1/gifs/translate?api_key=mTBAlByNPEccPyam6w9yLObH320xot5y&s=`
+    const newRequest = new Request(`https://api.giphy.com/v1/gifs/translate?api_key=mTBAlByNPEccPyam6w9yLObH320xot5y&s=${searchHolder}`
     ,{mode: 'cors'});
   
     fetch(newRequest)
