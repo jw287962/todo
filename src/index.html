@@ -7,11 +7,12 @@
  
 </head>
   <body>
-    <button class="helpbutton">HELP</button>
     <div id="content">
-
+      <div>
+        <button class="helpbutton">HELP</button>
+      </div>
       <div class="headerbuttondiv">
-        
+        <button class="loginbutton">LOGIN</button>
         <button class="menusbutton">MENU
           <!-- 
           <button class="projectsbutton">PROJECTS</button>
@@ -43,7 +44,7 @@
               </fieldset>
             </form>
       </div>
- 
+ <div class="line"></div>
       <div class="slider">
         <button class="previousimage"></button>
         <img class="image">
@@ -52,9 +53,78 @@
         <div class="imageindicator">
     
         </div>
+
+        <form class="gif">
+          <div>
+            <label for="gifsearch">GIF:</label>
+            <input type="search" id="gifsearch" name="gifsearch">
+          </div>
          
-    
+        </form>
+        
+         
+    <img src="#" alt="gifs" class="imageapi" height="300px">
+    <script>
+      const img = document.querySelector('.imageapi');
+
+      fetch('https://api.giphy.com/v1/gifs/translate?api_key=mTBAlByNPEccPyam6w9yLObH320xot5y&s=dogs',{mode: 'cors'})
+        .then(function(response){
+      response.json().then( (response) => {
+        img.src = response.data.images.original.url;
+        console.log(response.data.images.original.url);
+      });
+        });
+    </script>
   </div>
-      
+
+    <div class="login" >
+        <form class="loginform" novalidate>
+            <fieldset> Account
+                <label for="name">Name: <span class="err">*</span>
+                  <input 
+                  class="name"
+                   type="text" 
+                  placeholder="JASON WONG" 
+                  required>
+                  <span class="error"></span>
+                </label>
+
+                <label for="email">Email: <span class="err">*</span>
+                  <input 
+                   type="email" 
+                   class="email"
+                  placeholder="123@gmail.com"
+                  required >
+                  <span class="error"></span>
+                </label>
+
+                <label for="country">Country:
+                  <input 
+                  class="country"
+                   type="text" 
+                 >
+                </label>
+                <label for="pwd">Password: <span class="err">*</span>
+                  <input 
+                  class="pwd"
+                   type="password" 
+                   required>
+                   <span class="error"></span>
+                </label>
+               
+              </label>
+              <label for="pwdconfirm">Confirm Password: <span class="err">*</span>
+                <input 
+                class="pwdconfirm"
+                 type="password"
+                 required>
+                 <span class="error"></span>
+              </label>
+
+              <input type="submit" value="Submit">
+            </fieldset>
+
+        </form>
+    </div>
   </body>
 </html>

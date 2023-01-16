@@ -1,6 +1,7 @@
 import { todoProject } from './todo';
 import addImageSlider from './imageSlider'
 import './style.css';
+import showLoginForm from './login';
 import {
   getCurrentDate,
   findArrayNum,
@@ -17,6 +18,8 @@ import {
   createNewProjectHTML,
 } from './addHtml';
 import { isConfirmed, updateArrayTodoList } from './logic';
+
+import searchGifListener from './fetch';
 
 makeHelpCard();
 
@@ -56,6 +59,7 @@ let projectNum = 0;
 // const test = {
 //   home: ["as"],
 // };
+const loginButton = document.querySelector(".loginbutton");
 
 const menusButton = document.querySelector(".menusbutton");
 
@@ -67,7 +71,7 @@ const saveButton = document.querySelector(".savebutton");
 projectsButton.addEventListener("click", makeNewProject());
 saveButton.addEventListener("click", saveAllProjects);
 menusButton.addEventListener('click', menuButtonChange);
-
+loginButton.addEventListener('click', showLoginForm);
 toggleHelp();
 
 
@@ -78,12 +82,20 @@ addImageSlider();
 
 refreshProjectProperLoad();
 
+
+searchGifListener();
+
+// Functions
+
 function refreshProjectProperLoad(){
   let editProjectButton = document.querySelector('.todoedit');
   const doubleClickEvent  = new Event('dblclick');
   editProjectButton.dispatchEvent(doubleClickEvent);
   editProjectButton = document.querySelector('.editprojectbutton');
   editProjectButton.dispatchEvent(doubleClickEvent);
+  const loginForms = document.querySelector('.login');
+  loginForms.classList.toggle('hidden');
+
 }
 
 function menuButtonChange(){

@@ -24,7 +24,7 @@
 
 html {
   position: relative;
-  z-index: 100;
+
 }
 body {
   position: relative;
@@ -49,9 +49,9 @@ body {
 .todo {
   padding: 10px;
   border-radius: 10px;
-
   align-items: center;
   max-width: 450px;
+
 }
 /* HEADER */
 .header {
@@ -91,16 +91,20 @@ body {
   white-space: pre-line;
 }
     /* buttons */
+.loginbutton{
+  padding: 10px;
+}
+
 
     .headerbuttondiv{
       position: absolute;
       left: 0px;
       top: 0px;
-      grid-auto-flow: column;
+      grid-auto-flow: row;
       display: grid;
       height: 30px;
       background-color: white;
- 
+     
     }
 
     .menusbutton{
@@ -114,6 +118,7 @@ body {
     height: 40px;
     transition: border 500ms ease-in-out 100ms;
     transition: height 500ms ease-in-out 100ms;
+    margin-top: 2px;
     }
   .menusbutton.clicked{  
     border: 2px solid var(--buttongrey);
@@ -125,32 +130,37 @@ body {
    }
  .projectsbutton,.savebutton{
   border: 2px solid white;
-  opacity: 0;
+  scale: 0;
 
-  transition: border 300ms ease-in-out 100ms, opacity 300ms ease-in-out 100ms;
+  transition: border 300ms ease-in-out 100ms, scale 300ms ease-in-out 100ms;
  } 
  .projectsbutton.clicked,.savebutton.clicked{
   border-top: 1px solid black;
   
-    opacity: 1;
+  scale: 1;
    display: inline-block;
 }
     .helpbutton{
       position: absolute;
       right: 0px;
+    
     }
     .menusbutton,.helpbutton{
       background: rgba(255, 255, 255, 0);
       padding: 10px;
 
     }
-    .headerbuttondiv > button:active,
+
 .todoproject>button,
 .helpbutton:active,
 .todoedit:active{
 
   top: 2px;
 }
+.headerbuttondiv > button:active{
+  border: 2px solid grey;
+}
+
 .menusbutton>button{
  border: none;
  background-color: white;
@@ -335,6 +345,12 @@ input[type="date"] {
 
 
 /* IMAGE SLIDER */
+.line{
+  width: 90%;
+  
+  border-top: 3px dotted black;
+}
+
 .imageindicator{
   display: grid;
   gap: 5px;
@@ -348,9 +364,8 @@ input[type="date"] {
   border: 2px solid grey;
   border-radius: 50%;
   background-color: white;
-
+  margin-bottom:10px;
 }
-
 .active{
   background-color: grey;
 }
@@ -358,8 +373,8 @@ input[type="date"] {
   display: grid;
   grid-auto-flow: column;
   align-items: center;
-}
 
+}
 .slider>button{
 
   border: solid rgb(110, 110, 110);
@@ -382,6 +397,99 @@ input[type="date"] {
   transform: rotate(-45deg);
   -webkit-transform: rotate(-45deg);
 }
+
+/* FORM LOGIN */
+
+.login{
+ 
+  
+  padding: 15px;
+  position: fixed;
+  z-index: 1;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  left: 50%;
+}
+.loginform{
+ 
+  border: 5px solid black;
+  border-radius: 10px;
+}
+.loginform>fieldset>label{
+  width: 250px;
+}
+.loginform>fieldset{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}.loginform>fieldset>label>input{
+  width: 100%;
+}
+.loginform>fieldset>input[type="submit"]{
+ color: black;
+ width: 100px;
+}
+
+
+
+/* ERROR LABELS */
+
+.err{
+  color: red;
+}
+*:required{
+  background-color: gold;
+}
+.invalid{
+  width: 100%;
+  padding: 3px;
+ 
+  font-size: 80%;
+  color: white;
+  background-color: #900;
+  border-radius: 0 0 5px 5px;
+  box-sizing: border-box;
+
+}
+
+.button{
+  background-color: white;
+  outline: none;
+  border: 1px solid grey;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 10px;
+  font-weight:800;
+
+}
+
+
+/* gif search */
+.gif{
+  display: flex;
+  flex-direction: column;
+  background-color: var(--grey);
+  padding: 10px;
+  align-items: center;
+}
+.gif>div>input[type="search"]{
+  padding: 2px 8px;
+  border-radius: 10px;
+  border: 1px solid grey;
+}
+
+.gif>input[type="button"]{
+  width: 100px;
+  background-color: white;
+  outline: none;
+  border: 1px solid black;
+  margin: 10px;
+}
+
+
 @media only screen and (max-width: 600px) {
   :root{
     --width: 80vw;
